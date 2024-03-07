@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIENVENIDOS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #285C4D;
+    }
+
+    img {
+      width: 200px; 
+      height: 100px; 
+      margin-bottom: 20px;
+    }
+
+    .columns {
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+    }
+
+    .left-column {
+      width: 45%; 
+    }
+
+    .right-column {
+      width: 16%; 
+    }
+  </style>
+</head>
+<body>
+
+  <div class="columns">
+    <div class="left-column">
+      <img src="res/img/inami.png" alt="logo">
+    </div>
+    <h2>BIENVENIDO</h2>
+    <div class="right-column">
+      <img src="res/img/Picture4.png" alt="logo">
+    </div>
+  </div>
+
+
+
+      <p>Utiliza el RUI electrónico para el registro de datos de la población migrante rescatada en México.</p>
+      <p>¡Únete y contribuye a agilizar la operación migratoria a lo largo del país!</p>
+      <p>¡Datos puntuales, verificados ya accesibles!</p>
+      <p>Dirección General de Control y Verificación Migratoria</p>
+      <p>Dirección General de Coordinación de Oficinas de Representación</p>
+
+  <script>
+    function loginUser() {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      if (username === "Ariana" && password === "123456") {
+        alert("Login successful!");
+        return true;
+      } else {
+        alert("Invalid username or password. Please try again.");
+        return false;
+      }
+    }
+  </script>
+
+</body>
+</html>
