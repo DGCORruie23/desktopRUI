@@ -13,6 +13,7 @@
       height: 100vh;
       margin: 0;
       background-color: #285C4D;
+      color: white;
     }
 
     form {
@@ -59,9 +60,9 @@
   </style>
 </head>
 <body>
-
+<!-- 
   <form onsubmit="return loginUser()">
-    <img src="img/Picture4.png" alt="logo">
+    <img src="./src/res/img/Picture4.png" alt="logo">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
 
@@ -70,21 +71,20 @@
 
     <button type="submit">Entrar</button>
   </form>
+-->
+<form id="loginForm">
+  <label for="nickname">Nombre de usuario:</label>
+  <input type="text" id="nickname" name="nickname" required>
 
-  <script>
-    function loginUser() {
-      var username = document.getElementById("username").value;
-      var password = document.getElementById("password").value;
+  <label for="password">Contraseña:</label>
+  <input type="password" id="password" name="password" required>
 
-      if (username === "Ariana" && password === "123456") {
-        alert("Login successful!");
-        return true;
-      } else {
-        alert("Invalid username or password. Please try again.");
-        return false;
-      }
-    }
-  </script>
+  <button type="button" onclick="validateUser()">Iniciar Sesión</button>
+</form>
 
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script src="./src/res/apiJS/api.js"></script>
 </body>
 </html>

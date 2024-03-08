@@ -10,5 +10,9 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "29.1.0"
+  },
+  "dependencies": {
+    "ajax": "^0.0.4",
+    "electron-progressbar": "^2.2.1"
   }
 }
