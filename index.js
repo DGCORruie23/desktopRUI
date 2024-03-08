@@ -54,6 +54,7 @@ function createSecondWindow() {
   secondWindow.once('ready-to-show', () => {
     secondWindow.show()
   })
+
 }
 
 

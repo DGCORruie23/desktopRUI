@@ -1,54 +1,42 @@
-function validateUser() {
 
-    const nickname = document.getElementById('nickname').value;
-    const password = document.getElementById('password').value;
-  
-    const data = JSON.stringify({
+async function validateUser() {
+  const nickname = document.getElementById('nickname').value;
+  const password = document.getElementById('password').value;
+  const loginButton = document.querySelector('button');
+
+  loginButton.disabled = true;
+
+  const data = JSON.stringify({
       "nickname": nickname,
       "password": password
-    });
+  });
 
-    const xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-  
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === this.DONE) {
-        if (this.status === 200) {
+  try {
+      const response = await fetch("https://ruie.dgcor.com/login/validar/", {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'User-Agent': 'insomnia/8.6.0'
+          },
+          body: data
+      });
 
-        } else {
+      if (response.ok) {
+          const responseData = await response.json();
+          const valPasswd = responseData['password'];
 
-        }
-      }
-    });
-  
-    xhr.open("POST", "https://ruie.dgcor.com/login/validar/");
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.setRequestHeader("User-Agent", "insomnia/8.6.0");
-    xhr.send(data);
-
-
-    xhr.onload = function () {
-        if (xhr.readyState === xhr.DONE) {
-          if (xhr.status === 200) {
-            console.log(xhr.response);
-            console.log(xhr.responseText);
-            console.log("Usuario válido");
-
-            var obj = $.parseJSON(xhr.responseText);
-            var valPasswd = obj['password'];
-            var valUser = obj['nickname'];
-            
-            //alert(valPasswd);
-
-            if(valPasswd == 'ok'){
-                alert("¡Usuario correcto!");
-            }else {
-                alert("Usuario y/o contraseña incorrectos");
-            }
-          }else {
-            alert("No se ha podido conectar con el sistema.");
+          if (valPasswd === 'ok') {
+              alert("¡Usuario correcto!");
+          } else {
+              alert("Usuario y/o contraseña incorrectos");
           }
-        }
-      };
+      } else {
+          alert("No se ha podido conectar con el sistema.");
+      }
+  } catch (error) {
+      console.error('Error:', error);
+  } finally {
+      loginButton.disabled = false;
   }
-  
+
+}
