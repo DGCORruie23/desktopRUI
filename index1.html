@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,16 +34,19 @@
 
     input {
       width: 100%;
-  padding: 8px;
-  margin-bottom: 16px;
-  box-sizing: border-box;
-  
-  /* Estilo para convertir el input en una línea transparente */
-  border: none;
-  border-bottom: 1px solid gray;
-  outline: none; /* Para quitar el contorno predeterminado al hacer clic */
-  background-color: transparent; /* Fondo transparente */
-  color: white; /* Color del texto */
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+
+      /* Estilo para convertir el input en una línea transparente */
+      border: none;
+      border-bottom: 1px solid gray;
+      outline: none;
+      /* Para quitar el contorno predeterminado al hacer clic */
+      background-color: transparent;
+      /* Fondo transparente */
+      color: white;
+      /* Color del texto */
     }
 
     button {
@@ -60,14 +64,15 @@
     }
 
     img {
-      width: 100px; 
-      height: auto; 
+      width: 100px;
+      height: auto;
       margin-bottom: 10px;
     }
   </style>
 </head>
+
 <body>
-<!-- 
+  <!-- 
   <form onsubmit="return loginUser()">
     <img src="./src/res/img/Picture4.png" alt="logo">
     <label for="username">Username:</label>
@@ -79,19 +84,21 @@
     <button type="submit">Entrar</button>
   </form>
 -->
-<form id="loginForm">
-  <label for="nickname" class="">Nombre de usuario:</label>
-  <input type="text" id="nickname" name="nickname" required>
+  <form id="loginForm">
+    <label for="nickname" class="">Nombre de usuario:</label>
+    <input type="text" id="nickname" name="nickname" required>
 
-  <label for="password">Contraseña:</label>
-  <input type="password" id="password" name="password" required>
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" name="password" required>
 
-  <button type="buttonl" id="buttonl" name="buttonl" onclick="validateUser()">Iniciar Sesión</button>
-</form>
+    <button type="buttonl" id="buttonl" name="buttonl" onclick="validateUser()">Iniciar Sesión</button>
+  </form>
 
 
 
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
   <script src="./src/res/apiJS/api.js"></script>
 </body>
+
 </html>

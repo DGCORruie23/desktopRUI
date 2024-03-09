@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron/main')
+const { ipcMain} = require('electron');
 
 let progressInterval
 let secondWindow
@@ -42,19 +43,47 @@ function createSecondWindow() {
   secondWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    show: false // set show to false initially
+    show: false, // set show to false initially
   })
 
   secondWindow.loadFile('index1.html')
 
   secondWindow.on('closed', function () {
     secondWindow = null
+    createThirdWindow();
   })
 
   secondWindow.once('ready-to-show', () => {
     secondWindow.show()
   })
 
+  ipcMain.on('user-validated', () => {
+    console.log("Mensaje 'user-validated' recibido en el proceso principal");
+
+    secondWindow.hide();
+    secondWindow.close();
+    
+  });
+
+}
+
+
+function createThirdWindow() {
+  thirdWindow = new BrowserWindow({
+      width: 1366,
+      height: 768,
+      show: false // set show to false initially
+  });
+
+  thirdWindow.loadFile('index2.html');
+
+  thirdWindow.on('closed', function () {
+      thirdWindow = null;
+  });
+
+  thirdWindow.once('ready-to-show', () => {
+      thirdWindow.show();
+  });
 }
 
 

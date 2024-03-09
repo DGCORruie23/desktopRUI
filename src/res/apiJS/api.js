@@ -1,8 +1,10 @@
+const { ipcRenderer } = require('electron');
 
 async function validateUser() {
   const nickname = document.getElementById('nickname').value;
   const password = document.getElementById('password').value;
   const loginButton = document.querySelector('button');
+  var validado = 0;
 
   loginButton.disabled = true;
 
@@ -27,6 +29,8 @@ async function validateUser() {
 
           if (valPasswd === 'ok') {
               alert("¡Usuario correcto!");
+              validado = 1;
+              ipcRenderer.send('user-validated');
           } else {
               alert("Usuario y/o contraseña incorrectos");
           }
@@ -40,3 +44,4 @@ async function validateUser() {
   }
 
 }
+

@@ -1,17 +1,32 @@
-
 .marron {
-    background-color: #DDC9A3;
-  }
-  
-  .verde {
-    background-color: #235B4E;
-  }
-  
-  .verde_oscuro {
-    background-color: #10312B;
-  }
-  
-  .verde_claro {
-    background-color: #047832;
-  }
-  
+  background-color: #DDC9A3;
+}
+
+.marron-f{
+  color: #DDC9A3;
+}
+
+.verde {
+  background-color: #235B4E;
+}
+
+.verde_oscuro {
+  background-color: #10312B;
+}
+
+.verde_claro {
+  background-color: #047832;
+}
+
+.rojo_oscuro {
+  background-color: #691C32;
+}
+
+.rojo {
+  background-color: #9F2241;
+}
+
+.rojo_claro {
+  background-color: #C30E2E;
+}
+
