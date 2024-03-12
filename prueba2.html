@@ -21,41 +21,44 @@
             <div class="panel-label">Captura</div>
             <center>
                 <p>Fecha:
-                <div id="fecha">
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-                </div>
+                    <div id="fecha">
+                    </div>
                 </p>
             </center>
             <center>
                 <p>Hora:
-                <div id="hora">
-                </div>
+                    <div id="hora">
+                    </div>
                 </p>
             </center>
             <form>
                 <label for="fecha">Tipo de Rescate:</label>
-                <input type="text" id="tRescate" name="nombre" required>
                 <div class="content-select">
-                    <select>
-                        <option>Aeropuerto</option>
-                        <option>Carretero</option>
-                        <option>Casa de Seguridad</option>
-                        <option>Central de Autobuses</option>
-                        <option>Ferrocrril</option>
-                        <option>Hotel</option>
-                        <option>Puestos a Disposicion</option>
-                        <option>Voluntarios</option>
+                    <select id="tRescate" name="tRescate" required>
+                        <option value="Aeropuerto">Aeropuerto</option>
+                        <option value="Carretero">Carretero</option>
+                        <option value="Casa de Seguridad">Casa de Seguridad</option>
+                        <option value="Central de Autobuses">Central de Autobuses</option>
+                        <option value="Ferrocrril">Ferrocrril</option>
+                        <option value="Hotel">Hotel</option>
+                        <option value="Puestos a Disposicion">Puestos a Disposicion</option>
+                        <option value="Voluntarios">Voluntarios</option>
                     </select>
-                    <i></i>
                 </div>
+                <br>
 
                 <label for="nPunto">Nombre del Punto:</label>
-                <input type="text" id="nPunto" name="nPunto" required>
                 <div class="content-select">
-                    <select>
-                        <option>Aeropuerto</option>
+                    <select id="tRescate" name="tRescate" required>
+                        <option value="Aeropuerto">Aeropuerto</option>
+                        <option value="Carretero">Carretero</option>
+                        <option value="Casa de Seguridad">Casa de Seguridad</option>
+                        <option value="Central de Autobuses">Central de Autobuses</option>
+                        <option value="Ferrocrril">Ferrocrril</option>
+                        <option value="Hotel">Hotel</option>
+                        <option value="Puestos a Disposicion">Puestos a Disposicion</option>
+                        <option value="Voluntarios">Voluntarios</option>
                     </select>
-                    <i></i>
                 </div>
                 <button class="marron button">+ Nacionalidad </button>
                 <button class="verde button">+ Familia</button>
@@ -75,6 +78,20 @@
     <footer class="verde">
         <p>Agente: Prueba</p>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        function actualizarFechaHora() {
+        var fechaElemento = document.getElementById('fecha');
+        var horaElemento = document.getElementById('hora');
+        var fechaActual = moment().format('YYYY-MM-DD');
+        var horaActual = moment().format('HH:mm');
+        fechaElemento.textContent = fechaActual;
+        horaElemento.textContent = horaActual;
+        }
+        setInterval(actualizarFechaHora, 1000);
+        actualizarFechaHora();
+    </script>
 
     <!-- <script src="./src/res/js/index2.js"></script> -->
 </body>
