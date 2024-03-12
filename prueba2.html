@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aaa</title>
+    <link rel="stylesheet" href="./src/res/css/colors.css">
+    <link rel="stylesheet" href="./src/res/css/prueba.css  ">
+</head>
+
+<body>
+
+    <header class="verde">
+        <h1>RESCATES OR: MORELOS</h1>
+    </header>
+
+    <div class="container">
+
+        <div class="capture-panel">
+            <div class="panel-label">Captura</div>
+            <center>
+                <p>Fecha:
+                <div id="fecha">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+                </div>
+                </p>
+            </center>
+            <center>
+                <p>Hora:
+                <div id="hora">
+                </div>
+                </p>
+            </center>
+            <form>
+                <label for="fecha">Tipo de Rescate:</label>
+                <input type="text" id="tRescate" name="nombre" required>
+                <div class="content-select">
+                    <select>
+                        <option>Aeropuerto</option>
+                        <option>Carretero</option>
+                        <option>Casa de Seguridad</option>
+                        <option>Central de Autobuses</option>
+                        <option>Ferrocrril</option>
+                        <option>Hotel</option>
+                        <option>Puestos a Disposicion</option>
+                        <option>Voluntarios</option>
+                    </select>
+                    <i></i>
+                </div>
+
+                <label for="nPunto">Nombre del Punto:</label>
+                <input type="text" id="nPunto" name="nPunto" required>
+                <div class="content-select">
+                    <select>
+                        <option>Aeropuerto</option>
+                    </select>
+                    <i></i>
+                </div>
+                <button class="marron button">+ Nacionalidad </button>
+                <button class="verde button">+ Familia</button>
+        </div>
+
+        
+    <div class="summary-panel">
+
+    </div>
+
+        </form>
+    </div>
+
+
+    </div>
+
+    <footer class="verde">
+        <p>Agente: Prueba</p>
+    </footer>
+
+    <!-- <script src="./src/res/js/index2.js"></script> -->
+</body>
+
+</html>

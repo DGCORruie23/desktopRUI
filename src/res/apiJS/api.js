@@ -1,4 +1,3 @@
-const { ipcRenderer } = require('electron');
 
 async function validateUser() {
   const nickname = document.getElementById('nickname').value;
@@ -28,10 +27,12 @@ async function validateUser() {
           const valPasswd = responseData['password'];
 
           if (valPasswd === 'ok') {
-              alert("¡Usuario correcto!");
               validado = 1;
-              ipcRenderer.send('user-validated');
+              console.log("Uusario correcto");
+              console.log(validado);
+              window.myAPI.printNameToCLI(validado)
           } else {
+              validado = 0;
               alert("Usuario y/o contraseña incorrectos");
           }
       } else {

@@ -1,14 +1,42 @@
 const { app, BrowserWindow } = require('electron/main')
-const { ipcMain} = require('electron');
+
+const { ipcMain } = require('electron')
+
+const path = require('path')
 
 let progressInterval
 let secondWindow
+
+function createWindowPrueba () {
+  // Create the browser window.
+  const mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: false,
+      preload: path.join(__dirname, 'preload.js')
+    }
+  })
+
+
+  mainWindow.loadFile('prueba.html')
+
+}
+
+
+
+
 
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 500,
-    frame: false
+    frame: false,
+    webPreferences: {
+      nodeIntegration : true,
+      enableRemoteModule: true
+    }
   })
 
   win.loadFile('index.html')
@@ -43,28 +71,38 @@ function createSecondWindow() {
   secondWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    show: false, // set show to false initially
+    show: false, 
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: false,
+      preload: path.join(__dirname, 'preload.js')
+    }
   })
 
   secondWindow.loadFile('index1.html')
 
   secondWindow.on('closed', function () {
     secondWindow = null
-    createThirdWindow();
   })
 
   secondWindow.once('ready-to-show', () => {
     secondWindow.show()
+
   })
 
-  ipcMain.on('user-validated', () => {
-    console.log("Mensaje 'user-validated' recibido en el proceso principal");
+  ipcMain.on('validado', (event, val) => {
+    //console.log(`Renderer: ${name}`)
 
-    secondWindow.hide();
-    secondWindow.close();
-    
-  });
+    if( val == 1){
+      secondWindow.hide()
+      secondWindow.close()
+      createThirdWindow();
+    }
+  })
 
+  
+
+  
 }
 
 
@@ -75,7 +113,7 @@ function createThirdWindow() {
       show: false // set show to false initially
   });
 
-  thirdWindow.loadFile('index2.html');
+  thirdWindow.loadFile('prueba2.html');
 
   thirdWindow.on('closed', function () {
       thirdWindow = null;
@@ -83,6 +121,7 @@ function createThirdWindow() {
 
   thirdWindow.once('ready-to-show', () => {
       thirdWindow.show();
+
   });
 }
 
@@ -106,6 +145,12 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+
+
+
+
+
 
 
 
