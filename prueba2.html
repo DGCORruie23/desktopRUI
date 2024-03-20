@@ -18,17 +18,17 @@
     <div class="container">
 
         <div class="capture-panel">
-            <div class="panel-label">Captura</div>
+            <div class="panel-label">Registro</div>
             <center>
                 <p>Fecha:
-                    <div id="fecha">
-                    </div>
+                <div id="fecha">
+                </div>
                 </p>
             </center>
             <center>
                 <p>Hora:
-                    <div id="hora">
-                    </div>
+                <div id="hora">
+                </div>
                 </p>
             </center>
             <form>
@@ -61,13 +61,13 @@
                     </select>
                 </div>
                 <button class="marron button">+ Nacionalidad </button>
-                <button class="verde button">+ Familia</button>
+                <button class="hovermarron verde button">+ Familia</button>
         </div>
 
-        
-    <div class="summary-panel">
 
-    </div>
+        <div class="summary-panel">
+
+        </div>
 
         </form>
     </div>
@@ -82,12 +82,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
         function actualizarFechaHora() {
-        var fechaElemento = document.getElementById('fecha');
-        var horaElemento = document.getElementById('hora');
-        var fechaActual = moment().format('YYYY-MM-DD');
-        var horaActual = moment().format('HH:mm');
-        fechaElemento.textContent = fechaActual;
-        horaElemento.textContent = horaActual;
+            var fechaElemento = document.getElementById('fecha');
+            var horaElemento = document.getElementById('hora');
+            var fechaActual = moment().format('YYYY-MM-DD');
+            var horaActual = moment().format('HH:mm');
+            fechaElemento.textContent = fechaActual;
+            horaElemento.textContent = horaActual;
         }
         setInterval(actualizarFechaHora, 1000);
         actualizarFechaHora();

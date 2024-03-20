@@ -44,7 +44,7 @@ header {
     padding: 10px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    transform: rotate(-90deg);
+
     transform-origin: top left;
     cursor: pointer;
     transition: left 0.3s;
