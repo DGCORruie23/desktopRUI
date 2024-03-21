@@ -39,7 +39,7 @@ function createWindow() {
     }
   })
 
-  win.loadFile('index.html')
+  win.loadFile('./src/res/ventanas/splashScreen.html')
 
   const INCREMENT = 0.03
   const INTERVAL_DELAY = 50 // ms
@@ -79,7 +79,7 @@ function createSecondWindow() {
     }
   })
 
-  secondWindow.loadFile('index1.html')
+  secondWindow.loadFile('./src/res/ventanas/log-in.html')
 
   secondWindow.on('closed', function () {
     secondWindow = null
@@ -113,7 +113,7 @@ function createThirdWindow() {
       show: false // set show to false initially
   });
 
-  thirdWindow.loadFile('prueba2.html');
+  thirdWindow.loadFile('./src/res/ventanas/ventanaCaptura.html');
 
   thirdWindow.on('closed', function () {
       thirdWindow = null;

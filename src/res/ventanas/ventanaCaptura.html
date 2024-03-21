@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>aaa</title>
-    <link rel="stylesheet" href="./src/res/css/colors.css">
-    <link rel="stylesheet" href="./src/res/css/prueba.css  ">
+    <link rel="stylesheet" href="../css/colors.css">
+    <link rel="stylesheet" href="../css/ventanaCaptura.css">
+
 </head>
 
 <body>
@@ -80,18 +81,7 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script>
-        function actualizarFechaHora() {
-            var fechaElemento = document.getElementById('fecha');
-            var horaElemento = document.getElementById('hora');
-            var fechaActual = moment().format('YYYY-MM-DD');
-            var horaActual = moment().format('HH:mm');
-            fechaElemento.textContent = fechaActual;
-            horaElemento.textContent = horaActual;
-        }
-        setInterval(actualizarFechaHora, 1000);
-        actualizarFechaHora();
-    </script>
+    <script src="../js/ventanaCaptura.js"></script>
 
     <!-- <script src="./src/res/js/index2.js"></script> -->
 </body>
