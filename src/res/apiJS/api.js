@@ -33,7 +33,7 @@ async function validateUser() {
               window.myAPI.printNameToCLI(validado)
           } else {
               validado = 0;
-              alert("Usuario y/o contraseña incorrectos");
+              document.getElementById("errorMessage").style.display = "block";
           }
       } else {
           alert("No se ha podido conectar con el sistema.");
