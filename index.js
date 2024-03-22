@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron/main')
-
+const { sequelize } = require('./models')
+const postControllers = require('./controllers/postControllers')
 const { ipcMain } = require('electron')
 
 const path = require('path')
@@ -110,7 +111,12 @@ function createThirdWindow() {
   thirdWindow = new BrowserWindow({
       width: 1366,
       height: 768,
-      show: false // set show to false initially
+      show: false, // set show to false initially
+      webPreferences: {
+        contextIsolation: false,
+        nodeIntegration: true,
+        preload: path.join(__dirname, 'preload.js')
+      }
   });
 
   thirdWindow.loadFile('./src/res/ventanas/ventanaCaptura.html');
@@ -123,6 +129,11 @@ function createThirdWindow() {
       thirdWindow.show();
 
   });
+
+  sequelize.sync().then(()=>{
+    console.log('connection synced')
+  })
+  postControllers.newPost();
 }
 
 
