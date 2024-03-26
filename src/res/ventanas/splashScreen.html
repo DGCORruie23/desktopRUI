@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../css/colors.css">
   <link rel="stylesheet" href="../css/splashScreen.css">
 
-
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
   <title>Document</title>
 </head>
 
@@ -56,6 +56,26 @@
     <div id="myBar"></div>
   </div>
   
+  <input type="hidden" value="mydb.db" id="dbpath" type="text">
+  <input type="hidden" id="isuri" name="URI" value=true checked>
+  <input type="hidden" id="singlequery" type="text">
+  <input type="hidden" id="value" type="text">
+
+  <input id="fetchallquery" type="text">
+  <input id="fetchallvalue" type="text">
+  <button onclick="window.api.fetchall()">Fetch all the records from the database</button>
+  <p id="poutfa"></p>
+  <script>
+      window.api.path();
+      let insertUser = document.getElementById("singlequery");
+      insertUser.value = "INSERT INTO Users ('nickname', 'nombre', 'apellido','password', 'estado', 'tipo') VALUES ('christian81','Christian', 'Rodríguez', 'ok', '2','3')";
+      window.api.equery();
+      let getUser = document.getElementById("fetchallquery");
+      getUser.value = "SELECT * FROM Users where id = 1";
+
+      window.api.fetchall();
+  </script>
+
   <script src="../js/progressBar.js"></script>
 </body>
 

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron ."
   },
-  "author": "josue",
+  "author": "Josue Ruiz Vargas",
   "license": "ISC",
   "devDependencies": {
     "electron": "29.1.0",

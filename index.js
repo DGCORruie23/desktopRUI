@@ -35,15 +35,17 @@ function createWindow() {
     height: 500,
     frame: false,
     webPreferences: {
+      preload: join(__dirname, "preloaddb.js"),
       nodeIntegration : true,
       enableRemoteModule: true
     }
+
   })
 
   win.loadFile('./src/res/ventanas/splashScreen.html')
 
   const INCREMENT = 0.03
-  const INTERVAL_DELAY = 50 // ms
+  const INTERVAL_DELAY = 1000 // ms
 
   let c = 0
   progressInterval = setInterval(() => {
