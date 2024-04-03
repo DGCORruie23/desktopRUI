@@ -39,6 +39,7 @@ contextBridge.exposeInMainWorld('api', {
     try {
       const arr = JSON.parse("[" + values + "]");
       const res = await ipcRenderer.invoke('fetchall', query, arr[0]);
+      console.log(JSON.stringify(res));
       document.getElementById('poutfa').innerText = 'Output: ' + JSON.stringify(res);
     } catch (error) {
       document.getElementById('poutfa').innerText = 'Output: ' + error;

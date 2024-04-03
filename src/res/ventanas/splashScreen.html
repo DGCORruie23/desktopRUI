@@ -61,17 +61,26 @@
   <input type="hidden" id="singlequery" type="text">
   <input type="hidden" id="value" type="text">
 
+  <label for="fetchallquery">Enter the query eg 'SELECT * FROM sqlite_master'</label>
   <input id="fetchallquery" type="text">
+  <br>
+  <br>
+  <label for="fetchallvalue">Enter the value in array eg ["name", "query", "SQL"]</label>
   <input id="fetchallvalue" type="text">
+  <br>
+  <br>
   <button onclick="window.api.fetchall()">Fetch all the records from the database</button>
+  <br>
   <p id="poutfa"></p>
+  <hr>
+  <br>
   <script>
       window.api.path();
       let insertUser = document.getElementById("singlequery");
       insertUser.value = "INSERT INTO Users ('nickname', 'nombre', 'apellido','password', 'estado', 'tipo') VALUES ('christian81','Christian', 'Rodríguez', 'ok', '2','3')";
       window.api.equery();
       let getUser = document.getElementById("fetchallquery");
-      getUser.value = "SELECT * FROM Users where id = 1";
+      getUser.value = "SELECT * FROM Users where id = 100";
 
       window.api.fetchall();
   </script>

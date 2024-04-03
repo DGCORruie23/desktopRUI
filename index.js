@@ -33,7 +33,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 500,
-    frame: false,
+
     webPreferences: {
       preload: join(__dirname, "preloaddb.js"),
       nodeIntegration : true,
@@ -45,7 +45,7 @@ function createWindow() {
   win.loadFile('./src/res/ventanas/splashScreen.html')
 
   const INCREMENT = 0.03
-  const INTERVAL_DELAY = 1000 // ms
+  const INTERVAL_DELAY = 50 // ms
 
   let c = 0
   progressInterval = setInterval(() => {
@@ -99,13 +99,11 @@ function createSecondWindow() {
     if( val == 1){
       secondWindow.hide()
       secondWindow.close()
-      createWindowDB();
+      createThirdWindow();
     }
   })
 
-  
 
-  
 }
 
 
@@ -115,13 +113,13 @@ function createThirdWindow() {
       height: 768,
       show: false, // set show to false initially
       webPreferences: {
-        contextIsolation: false,
-        nodeIntegration: true,
-        preload: path.join(__dirname, 'preloaddb.js')
+        contextIsolation: true,
+        nodeIntegration: false,
+        preload: path.join(__dirname, 'preload.js')
       }
   });
 
-  thirdWindow.loadFile('./src/res/ventanas/pruebasdb.html');
+  thirdWindow.loadFile('./src/res/ventanas/captura.html');
 
   thirdWindow.on('closed', function () {
       thirdWindow = null;
@@ -132,9 +130,45 @@ function createThirdWindow() {
 
   });
 
-
+  
+  ipcMain.on('nacionalidad', (event, nac) => {
+    //console.log(`Renderer: ${name}`)
+    console.log('nac vale');
+    console.log(nac);
+    if( nac == 1){
+      thirdWindow.hide()
+      thirdWindow.close()
+      createNacWindow();
+    }
+  })
 }
 
+
+function createNacWindow() {
+  NacWindow = new BrowserWindow({
+      width: 1366,
+      height: 768,
+      show: false, // set show to false initially
+      webPreferences: {
+        contextIsolation: false,
+        nodeIntegration: true,
+        preload: path.join(__dirname, 'preloaddb.js')
+      }
+  });
+
+  NacWindow.loadFile('./src/res/ventanas/nacionalidad.html');
+
+  NacWindow.on('closed', function () {
+    NacWindow = null;
+  });
+
+  NacWindow.once('ready-to-show', () => {
+    NacWindow.show();
+
+  });
+
+
+}
 
 
 app.whenReady().then(createWindow)

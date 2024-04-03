@@ -28,7 +28,7 @@ async function validateUser() {
 
           if (valPasswd === 'ok') {
               validado = 1;
-              console.log("Uusario correcto");
+              console.log("Usuario correcto");
               console.log(validado);
               window.myAPI.printNameToCLI(validado)
           } else {
