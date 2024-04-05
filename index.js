@@ -141,6 +141,17 @@ function createThirdWindow() {
       createNacWindow();
     }
   })
+
+  ipcMain.on('familia', (event, fam) => {
+    //console.log(`Renderer: ${name}`)
+    console.log('fam vale');
+    console.log(fam);
+    if( fam == 1){
+      thirdWindow.hide()
+      thirdWindow.close()
+      createFamWindow();
+    }
+  })
 }
 
 
@@ -150,9 +161,9 @@ function createNacWindow() {
       height: 768,
       show: false, // set show to false initially
       webPreferences: {
-        contextIsolation: false,
-        nodeIntegration: true,
-        preload: path.join(__dirname, 'preloaddb.js')
+        contextIsolation: true,
+        nodeIntegration: false,
+        preload: path.join(__dirname, 'preload.js')
       }
   });
 
@@ -164,6 +175,44 @@ function createNacWindow() {
 
   NacWindow.once('ready-to-show', () => {
     NacWindow.show();
+
+  });
+
+  ipcMain.on('retCap', (event, retCaptura) => {
+    //console.log(`Renderer: ${name}`)
+    console.log('retCaptura vale');
+    console.log(retCaptura);
+    if( retCaptura == 1){
+      NacWindow.hide()
+      NacWindow.close()
+      createThirdWindow();
+    }
+  })
+
+
+}
+
+
+function createFamWindow() {
+  FamWindow = new BrowserWindow({
+      width: 1366,
+      height: 768,
+      show: false, // set show to false initially
+      webPreferences: {
+        contextIsolation: false,
+        nodeIntegration: true,
+        preload: path.join(__dirname, 'preload.js')
+      }
+  });
+
+  FamWindow.loadFile('./src/res/ventanas/familia.html');
+
+  FamWindow.on('closed', function () {
+    FamWindow = null;
+  });
+
+  FamWindow.once('ready-to-show', () => {
+    FamWindow.show();
 
   });
 
