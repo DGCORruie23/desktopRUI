@@ -93,14 +93,16 @@ function createSecondWindow() {
 
   })
 
-  ipcMain.on('validado', (event, val) => {
+  ipcMain.once('validado', (event, val) => {
     //console.log(`Renderer: ${name}`)
 
     if( val == 1){
       secondWindow.hide()
       secondWindow.close()
       createThirdWindow();
+      val = 0;
     }
+    val = 0;
   })
 
 
@@ -131,7 +133,7 @@ function createThirdWindow() {
   });
 
   
-  ipcMain.on('nacionalidad', (event, nac) => {
+  ipcMain.once('nacionalidad', (event, nac) => {
     //console.log(`Renderer: ${name}`)
     console.log('nac vale');
     console.log(nac);
@@ -139,10 +141,12 @@ function createThirdWindow() {
       thirdWindow.hide()
       thirdWindow.close()
       createNacWindow();
+      nac = 0;
     }
+    nac = 0;
   })
 
-  ipcMain.on('familia', (event, fam) => {
+  ipcMain.once('familia', (event, fam) => {
     //console.log(`Renderer: ${name}`)
     console.log('fam vale');
     console.log(fam);
@@ -150,7 +154,9 @@ function createThirdWindow() {
       thirdWindow.hide()
       thirdWindow.close()
       createFamWindow();
+      fam = 0;
     }
+    fam = 0;
   })
 }
 
@@ -178,7 +184,7 @@ function createNacWindow() {
 
   });
 
-  ipcMain.on('retCap', (event, retCaptura) => {
+  ipcMain.once('retCap', (event, retCaptura) => {
     //console.log(`Renderer: ${name}`)
     console.log('retCaptura vale');
     console.log(retCaptura);
@@ -186,7 +192,9 @@ function createNacWindow() {
       NacWindow.hide()
       NacWindow.close()
       createThirdWindow();
+      retCaptura = 0;
     }
+    retCaptura = 0;
   })
 
 
@@ -199,8 +207,8 @@ function createFamWindow() {
       height: 768,
       show: false, // set show to false initially
       webPreferences: {
-        contextIsolation: false,
-        nodeIntegration: true,
+        contextIsolation:  true,
+        nodeIntegration: false,
         preload: path.join(__dirname, 'preload.js')
       }
   });
@@ -215,6 +223,19 @@ function createFamWindow() {
     FamWindow.show();
 
   });
+
+  ipcMain.once('retCap', (event, retCaptura) => {
+    //console.log(`Renderer: ${name}`)
+    console.log('retCaptura vale');
+    console.log(retCaptura);
+    if( retCaptura == 1){
+      FamWindow.hide()
+      FamWindow.close()
+      createThirdWindow();
+      retCaptura = 0;
+    }
+    retCaptura = 0;
+  })
 
 
 }
