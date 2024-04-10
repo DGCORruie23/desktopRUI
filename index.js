@@ -45,7 +45,7 @@ function createWindow() {
   win.loadFile('./src/res/ventanas/splashScreen.html')
 
   const INCREMENT = 0.03
-  const INTERVAL_DELAY = 50 // ms
+  const INTERVAL_DELAY = 2000 // ms
 
   let c = 0
   progressInterval = setInterval(() => {
@@ -144,6 +144,7 @@ function createThirdWindow() {
       nac = 0;
     }
     nac = 0;
+    ipcMain.removeListener('nacionalidad', (event, nac));
   })
 
   ipcMain.once('familia', (event, fam) => {
@@ -157,6 +158,7 @@ function createThirdWindow() {
       fam = 0;
     }
     fam = 0;
+    ipcMain.removeListener('familia', (event, fam));
   })
 }
 
@@ -195,6 +197,7 @@ function createNacWindow() {
       retCaptura = 0;
     }
     retCaptura = 0;
+    ipcMain.removeListener('retCap', (event, retCaptura));
   })
 
 
@@ -235,6 +238,7 @@ function createFamWindow() {
       retCaptura = 0;
     }
     retCaptura = 0;
+    ipcMain.removeListener('retCap', (event, retCaptura));
   })
 
 

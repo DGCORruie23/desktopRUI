@@ -69,12 +69,17 @@
   <input id="fetchallvalue" type="text">
   <br>
   <br>
-  <button onclick="window.api.fetchall()">Fetch all the records from the database</button>
+  <!-- <button onclick="window.api.fetchall()">Fetch all the records from the database</button> -->
   <br>
   <p id="poutfa"></p>
+
+  <p>aaaaa</p>
+
+  <p id="aaa"></p>
   <hr>
   <br>
   <script>
+
       window.api.path();
       let insertUser = document.getElementById("singlequery");
       insertUser.value = "INSERT INTO Users ('nickname', 'nombre', 'apellido','password', 'estado', 'tipo') VALUES ('christian81','Christian', 'Rodríguez', 'ok', '2','3')";
@@ -83,6 +88,8 @@
       getUser.value = "SELECT * FROM Users where id = 100";
 
       window.api.fetchall();
+
+
   </script>
 
   <script src="../js/progressBar.js"></script>
