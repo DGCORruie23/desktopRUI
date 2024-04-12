@@ -58,5 +58,6 @@ body {
 
 
 
-
-
+.dispnone {
+  display: none;
+}

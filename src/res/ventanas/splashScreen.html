@@ -60,37 +60,79 @@
   <input type="hidden" id="isuri" name="URI" value=true checked>
   <input type="hidden" id="singlequery" type="text">
   <input type="hidden" id="value" type="text">
+  <input type="hidden" id="fetchallquery" type="text">
+  <input type="hidden" id="fetchallvalue" type="text">
 
-  <label for="fetchallquery">Enter the query eg 'SELECT * FROM sqlite_master'</label>
-  <input id="fetchallquery" type="text">
-  <br>
-  <br>
-  <label for="fetchallvalue">Enter the value in array eg ["name", "query", "SQL"]</label>
-  <input id="fetchallvalue" type="text">
-  <br>
-  <br>
-  <!-- <button onclick="window.api.fetchall()">Fetch all the records from the database</button> -->
-  <br>
-  <p id="poutfa"></p>
-
-  <p>aaaaa</p>
-
-  <p id="aaa"></p>
-  <hr>
-  <br>
+  <p class="dispnone" id="poutfa"></p>
+  <p id="info"></p>
   <script>
 
+      // import { executeQuery } from "sqlite-electron";
       window.api.path();
       let insertUser = document.getElementById("singlequery");
       insertUser.value = "INSERT INTO Users ('nickname', 'nombre', 'apellido','password', 'estado', 'tipo') VALUES ('christian81','Christian', 'Rodríguez', 'ok', '2','3')";
       window.api.equery();
       let getUser = document.getElementById("fetchallquery");
-      getUser.value = "SELECT * FROM Users where id = 100";
+      getUser.value = "SELECT password FROM Users where id = 100";
 
-      window.api.fetchall();
+
+
+
+      function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      async function delayedLoop() {
+          await delay(200); // Delaying for 1 second (1000 milliseconds)
+          window.api.fetchall();
+      }
+
+      delayedLoop();
+
+      async function info() {
+          await delay(250); // Delaying for 1 second (1000 milliseconds)
+          
+          var info = document.getElementById("poutfa").textContent;
+          
+          infoArray = info.split(' '),
+          ultima      = infoArray[infoArray.length - 1]
+          ultima2      = ultima[ultima.length - 5]
+          ultima3      = ultima[ultima.length - 4]
+          
+          var res = "";
+          res = res.concat(ultima2);
+          res = res.concat(ultima3);
+
+          document.getElementById("info").innerText = res;
+
+          if(res == "ok"){
+            console.log("bien");
+          }else {
+            console.log("no existe el usuario");
+          }
+      }
+      
+      info();
+
+
+      
+
+      // executeQuery(
+      //   "INSERT INTO Users ('nickname', 'nombre', 'apellido','password', 'estado', 'tipo') VALUES (?, ?, ?, ?);",
+      //   ['josue','Josue', 'Ruiz', 'ok', '2','3']
+      // );
+
+
+
+      // executeQuery(
+      //   "INSERT INTO Users ('nickname', 'nombre', 'apellido','password', 'estado', 'tipo') VALUES (?,?,?, ?, ?, ?);",
+      //   ['josue','Josue', 'Ruiz', 'ok', '2','3']
+      // );
+
 
 
   </script>
+
 
   <script src="../js/progressBar.js"></script>
 </body>

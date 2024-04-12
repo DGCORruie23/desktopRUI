@@ -3,6 +3,8 @@ const { ipcMain } = require('electron')
 const { join } = require("path");
 const { setdbPath, executeQuery, executeMany, executeScript, fetchOne, fetchMany, fetchAll } = require("sqlite-electron");
 
+const sqlite = require("sqlite-electron");
+
 const path = require('path')
 
 let progressInterval
@@ -45,7 +47,7 @@ function createWindow() {
   win.loadFile('./src/res/ventanas/splashScreen.html')
 
   const INCREMENT = 0.03
-  const INTERVAL_DELAY = 2000 // ms
+  const INTERVAL_DELAY = 500 // ms
 
   let c = 0
   progressInterval = setInterval(() => {
@@ -63,6 +65,7 @@ function createWindow() {
 
       win.hide()
       win.close()
+      
 
       createSecondWindow()
     }
@@ -91,6 +94,9 @@ function createSecondWindow() {
   secondWindow.once('ready-to-show', () => {
     secondWindow.show()
 
+
+    
+
   })
 
   ipcMain.once('validado', (event, val) => {
@@ -104,6 +110,7 @@ function createSecondWindow() {
     }
     val = 0;
   })
+
 
 
 }
@@ -129,6 +136,7 @@ function createThirdWindow() {
 
   thirdWindow.once('ready-to-show', () => {
       thirdWindow.show();
+
 
   });
 
@@ -344,3 +352,5 @@ ipcMain.handle("executeScript", async (event, scriptpath) => {
     return error;
   }
 });
+
+
