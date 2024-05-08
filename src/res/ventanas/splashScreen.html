@@ -73,7 +73,7 @@
       insertUser.value = "INSERT INTO Users ('nickname', 'nombre', 'apellido','password', 'estado', 'tipo') VALUES ('christian81','Christian', 'Rodríguez', 'ok', '2','3')";
       window.api.equery();
       let getUser = document.getElementById("fetchallquery");
-      getUser.value = "SELECT password FROM Users where id = 100";
+      getUser.value = "SELECT * FROM Users where id = 290";
 
 
 
@@ -105,10 +105,11 @@
 
           document.getElementById("info").innerText = res;
 
-          if(res == "ok"){
+          if(res == true){
             console.log("bien");
           }else {
             console.log("no existe el usuario");
+            console.log(res);
           }
       }
       
