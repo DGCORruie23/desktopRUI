@@ -94,16 +94,19 @@
           
           var info = document.getElementById("poutfa").textContent;
           
-          infoArray = info.split(' '),
-          ultima      = infoArray[infoArray.length - 1]
-          ultima2      = ultima[ultima.length - 5]
-          ultima3      = ultima[ultima.length - 4]
+          // infoArray = info.split(' '),
+          // ultima      = infoArray[infoArray.length - 1]
+          // ultima2      = ultima[ultima.length - 5]
+          // ultima3      = ultima[ultima.length - 4]
           
-          var res = "";
-          res = res.concat(ultima2);
-          res = res.concat(ultima3);
+          // var res = "";
+          // res = res.concat(ultima2);
+          // res = res.concat(ultima3);
 
-          document.getElementById("info").innerText = res;
+
+          const infoStr = info.substring(1, info.length - 1);
+          const infoJson = JSON.parse(infoStr);
+          document.getElementById("info").innerText = infoJson.password;
 
           if(res == true){
             console.log("bien");
