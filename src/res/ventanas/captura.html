@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +8,11 @@
     <link rel="stylesheet" href="../css/ventanaCaptura.css">
 
 </head>
-
 <body>
+    <header class="verde"><h1></h1></header>
 
-    <header class="verde">
-        <h1>RESCATES OR: MORELOS</h1>
-    </header>
-
+    <input type="hidden" id="oficinaR" value="">
     <div class="container">
-
         <div class="capture-panel">
             <div class="panel-label">Registro</div>
             <center>
@@ -47,10 +42,9 @@
                     </select>
                 </div>
                 <br>
-
                 <label for="nPunto">Nombre del Punto:</label>
                 <div class="content-select">
-                    <select id="tRescate" name="tRescate" required>
+                    <select id="nPunto" name="nPunto" required>
                         <option value="Aeropuerto">Aeropuerto</option>
                         <option value="Carretero">Carretero</option>
                         <option value="Casa de Seguridad">Casa de Seguridad</option>
@@ -61,13 +55,10 @@
                         <option value="Voluntarios">Voluntarios</option>
                     </select>
                 </div>
-              
                 <button type="submit" id="buttonl" class="btn marron button" onclick="nacionalidad()">+ Nacionalidad</button>
                 <button type="submit" id="buttonl" class="hovermarron verde button" onclick="familia()">+ Familia</button>
-                
+            </form>
         </div>
-
-
         <div class="summary-panel">
             <h1>Buscador de Puntos de Revisión</h1>
             <label for="selector">Buscar por nombre del punto:</label>
@@ -75,23 +66,17 @@
               <option value="" selected>Selecciona un punto de revisión</option>
             </select>
         </div>
-
-        </form>
     </div>
 
-
-    </div>
-
-    <footer class="verde">
-        <p>Agente: Prueba</p>
-    </footer>
-
-    <script src="../js/nacionalidad.js"></script>
-    <script src="../js/familia.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <footer class="verde"><p></p></footer>
+    <!-- <script src="../js/nacionalidad.js"></script> -->
+    <!-- <script src="../js/familia.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
     <script src="../js/ventanaCaptura.js"></script>
     <script src='../../../renderer.js'></script>
-    <!-- <script src="./src/res/js/index2.js"></script> -->
 </body>
-
 </html>
+
+
+
+

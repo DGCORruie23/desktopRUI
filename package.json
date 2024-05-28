@@ -1,25 +1,20 @@
 {
-  "name": "my-electron-app",
+  "name": "ruiedesktop",
   "version": "1.0.0",
-  "description": "login",
+  "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ."
   },
-  "author": "Josue Ruiz Vargas",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "29.1.0",
-    "electron-packager": "^17.1.2"
-  },
-  "browser": {
-    "fs": false,
-    "path": false,
-    "os": false
+    "electron": "^30.0.3"
   },
   "dependencies": {
-    "ajax": "^0.0.4",
-    "electron-progressbar": "^2.2.1",
-    "sqlite-electron": "^3.0.5"
+    "axios": "^1.7.2",
+    "check-internet-connected": "^2.0.6",
+    "sqlite3": "^5.1.7"
   }
 }

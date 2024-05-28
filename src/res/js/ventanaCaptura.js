@@ -1,13 +1,15 @@
-function actualizarFechaHora() {
-    var fechaElemento = document.getElementById('fecha');
-    var horaElemento = document.getElementById('hora');
-    var fechaActual = moment().format('YYYY-MM-DD');
-    var horaActual = moment().format('HH:mm');
-    fechaElemento.textContent = fechaActual;
-    horaElemento.textContent = horaActual;
-}
-setInterval(actualizarFechaHora, 1000);
-actualizarFechaHora();
+
+
+// function actualizarFechaHora() {
+//     var fechaElemento = document.getElementById('fecha');
+//     var horaElemento = document.getElementById('hora');
+//     var fechaActual = moment().format('YYYY-MM-DD');
+//     var horaActual = moment().format('HH:mm');
+//     fechaElemento.textContent = fechaActual;
+//     horaElemento.textContent = horaActual;
+// }
+// setInterval(actualizarFechaHora, 1000);
+// actualizarFechaHora();
 
 
 let puntosDeRevision = [];
@@ -17,7 +19,14 @@ function buscarPunto() {
   const textoBusqueda = input.value.toLowerCase();
   const selector = document.getElementById('selector');
   selector.innerHTML = '<option value="" selected>Selecciona un punto de revisión</option>'; // Limpiar opciones anteriores
+  
+  const oficinaR = document.getElementById('oficinaR').value;
+  // let ags = puntosDeRevision.filter(puntosDeRevision => puntosDeRevision.oficinaR == estado);
+  console.log(oficinaR);
 
+  puntosDeRevision = puntosDeRevision.filter(puntosDeRevision => puntosDeRevision.oficinaR == oficinaR);
+
+  console.log(puntosDeRevision);
   puntosDeRevision.forEach(punto => {
     const oficinaR = punto.oficinaR.toLowerCase();
     const nomPuntoRevision = punto.nomPuntoRevision.toLowerCase();
@@ -47,3 +56,6 @@ fetch('https://ruie.dgcor.com/info/Fuerza', {method: 'GET', headers: {'User-Agen
     buscarPunto(); // Mostrar todos los puntos de revisión al cargar
   })
   .catch(err => console.error(err));
+
+
+
