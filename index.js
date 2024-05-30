@@ -7,6 +7,7 @@ const { copyFileSync } = require('fs');
 let mainWindow, db, progressInterval, secondWindow, thirdWindow, NacWindow, FamWindow;
 let userExists = false;
 let userData = null;
+let mainWindowReady = false;
 
 function connectToDatabase() {
   const dbPath = path.join(__dirname, 'mydb.db');
@@ -20,52 +21,51 @@ function connectToDatabase() {
   });
 }
 
-function checkDataBase(){
-  const dbPath = path.join(__dirname, 'mydb.db');
-  console.log('Ruta de la base de datos:', dbPath);
-  found = sqlite3.NOTFOUND(dbPath, (err) => {
-    if(err){
-      console,error('No se encontró la base de datos: ', err)
-    } else{
-      console.log("Base de datos encontrada");
-    }
-  })
-}
-
-
 function loadMainWindow() {
   mainWindow.loadFile('./src/res/ventanas/splashScreen.html');
-  const INCREMENT = 0.03;
-  const INTERVAL_DELAY = 30; // ms
-  let c = 0;
+  mainWindow.webContents.on('did-finish-load', () => {
+    console.log('mainWindow cargado');
+    const INCREMENT = 0.03;
+    const INTERVAL_DELAY = 30; // ms
+    let c = 0;
 
-  progressInterval = setInterval(async () => {
-    mainWindow.setProgressBar(c);
+    progressInterval = setInterval(async () => {
+      mainWindow.setProgressBar(c);
+      console.log(`Progreso: ${c}`);
 
-    if (c >= 0.25 && c < 0.25 + INCREMENT) {
-      await checkForUser();
-      if (userExists) {
-        mainWindow.webContents.send('update-data', userData);
-      } else {
-        createSecondWindow();
+      if (c >= 0.25 && c < 0.25 + INCREMENT) {
+        console.log('Dentro del rango de progreso para comprobar el usuario');
+        await checkForUser();
+        if (userExists) {
+          console.log('Usuario encontrado, esperando a que mainWindow esté listo');
+          if (mainWindowReady && mainWindow && !mainWindow.isDestroyed() && mainWindow.webContents) {
+            mainWindow.webContents.send('update-data', userData);
+          } else {
+            console.error('mainWindow no está disponible o está cerrado');
+          }
+        } else {
+          console.log('Usuario no encontrado, creando segunda ventana');
+          createSecondWindow();
+        }
       }
-    }
 
-    if (c < 1) {
-      c += INCREMENT;
-    } else {
-      clearInterval(progressInterval);
-      mainWindow.setProgressBar(-1);
-      mainWindow.hide();
-      mainWindow.close();
-
-      if (userExists) {
-        createThirdWindowWithUser(userData);
+      if (c < 1) {
+        c += INCREMENT;
       } else {
-        createSecondWindow();
+        console.log('Progreso completo');
+        clearInterval(progressInterval);
+        mainWindow.setProgressBar(-1);
+        mainWindow.hide();
+        mainWindow.close();
+
+        if (userExists) {
+          createThirdWindowWithUser(userData);
+        } else {
+          createSecondWindow();
+        }
       }
-    }
-  }, INTERVAL_DELAY);
+    }, INTERVAL_DELAY);
+  });
 }
 
 app.on('ready', () => {
@@ -88,17 +88,24 @@ app.on('ready', () => {
 
   checkInternetConnected(config)
     .then(() => {
-      console.log("Connection available");
+      console.log("Connection disponible");
       connectToDatabase();
       loadMainWindow();
     })
     .catch((err) => {
-      console.log("No connection", err);
+      console.log("No hay conexión", err);
       connectToDatabase();
       loadMainWindow();
     });
 
   ipcMain.once('validado', handleValidado);
+  ipcMain.on('main-window-ready', () => {
+    mainWindowReady = true;
+    console.log('mainWindow está listo para recibir datos');
+    if (userExists && mainWindow && !mainWindow.isDestroyed() && mainWindow.webContents) {
+      mainWindow.webContents.send('update-data', userData);
+    }
+  });
 });
 
 async function checkForUser() {
@@ -114,6 +121,7 @@ async function checkForUser() {
         userData = row;
         resolve();
       } else {
+        console.log('No se encontró usuario');
         userExists = false;
         resolve();
       }
@@ -319,7 +327,7 @@ ipcMain.handle('executeQuery', async (event, query, params) => {
         console.error('Error al ejecutar la consulta:', err);
         reject(err);
       } else {
-        console.log('Consulta ejecutada correctamente:', rows.length, 'filas obtenidas.');
+        console.log('Consulta ejecutada correctamente, filas:', rows);
         resolve(rows);
       }
     });

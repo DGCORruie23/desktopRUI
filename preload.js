@@ -37,5 +37,14 @@ contextBridge.exposeInMainWorld('api', {
   }
 });
 
+window.addEventListener('DOMContentLoaded', () => {
+  ipcRenderer.send('main-window-ready');
+});
+
+ipcRenderer.on('update-data', (event, userData) => {
+  // Aquí manejas los datos del usuario
+  console.log('Datos del usuario recibidos:', userData);
+  // Actualiza tu UI con los datos del usuario
+});
 
 
