@@ -155,7 +155,7 @@ window.addEventListener('DOMContentLoaded', () => {
               const apellido = responseData['apellido'];
               const estado = responseData['estado'];
               const tipo = responseData['tipo'];
-  
+
               const validado = {
                   val: 1,
                   nickname: nickname,
@@ -165,7 +165,7 @@ window.addEventListener('DOMContentLoaded', () => {
                   tipo: tipo,
                   password: password,
               };
-  
+              
               updateUser(user.id,nickname, nombre, apellido, password, estado, tipo);
               window.myAPI.printNameToCLI(validado);
   

@@ -2,29 +2,59 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 const checkInternetConnected = require('check-internet-connected');
-const { copyFileSync } = require('fs');
+const { existsSync, readdirSync } = require('fs');
 
 let mainWindow, db, progressInterval, secondWindow, thirdWindow, NacWindow, FamWindow;
 let userExists = false;
 let userData = null;
 let mainWindowReady = false;
 
-function connectToDatabase() {
-  const dbPath = path.join(__dirname, 'mydb.db');
-  console.log('Ruta de la base de datos:', dbPath);
+function initializeDatabase() {
+  const dbFiles = readdirSync(__dirname).filter(file => file.endsWith('.db'));
+  let dbPath;
+
+  if (dbFiles.length > 0) {
+    dbPath = path.join(__dirname, dbFiles[0]);
+    console.log('Base de datos encontrada:', dbPath);
+  } else {
+    dbPath = path.join(__dirname, 'mydb.db');
+    console.log('No se encontró ninguna base de datos existente. Creando nueva base de datos en:', dbPath);
+  }
+
   db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
       console.error('Error al abrir la base de datos:', err);
     } else {
       console.log('Base de datos SQLite abierta correctamente.');
+
+      if (dbFiles.length === 0) {
+        console.log('La base de datos no existía, creando tabla Users.');
+        db.run(`CREATE TABLE "Users" (
+          "id" INTEGER NOT NULL,
+          "nickname" TEXT,
+          "nombre" TEXT,
+          "apellido" TEXT,
+          "password" TEXT,
+          "estado" TEXT,
+          "tipo" TEXT,
+          PRIMARY KEY("id" AUTOINCREMENT)
+        )`, (err) => {
+          if (err) {
+            console.error('Error al crear la tabla Users:', err);
+          } else {
+            console.log('Tabla Users creada correctamente.');
+          }
+        });
+      }
     }
   });
 }
 
 function loadMainWindow() {
   mainWindow.loadFile('./src/res/ventanas/splashScreen.html');
-  mainWindow.webContents.on('did-finish-load', () => {
+  mainWindow.webContents.on('did-finish-load', async () => {
     console.log('mainWindow cargado');
+    mainWindowReady = true;
     const INCREMENT = 0.03;
     const INTERVAL_DELAY = 30; // ms
     let c = 0;
@@ -39,6 +69,18 @@ function loadMainWindow() {
         if (userExists) {
           console.log('Usuario encontrado, esperando a que mainWindow esté listo');
           if (mainWindowReady && mainWindow && !mainWindow.isDestroyed() && mainWindow.webContents) {
+            mainWindow.webContents.once('update-data-reply', () => {
+              clearInterval(progressInterval);
+              mainWindow.setProgressBar(-1);
+              mainWindow.hide();
+              mainWindow.close();
+
+              if (userExists) {
+                createThirdWindowWithUser(userData);
+              } else {
+                createSecondWindow();
+              }
+            });
             mainWindow.webContents.send('update-data', userData);
           } else {
             console.error('mainWindow no está disponible o está cerrado');
@@ -68,6 +110,7 @@ function loadMainWindow() {
   });
 }
 
+
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 800,
@@ -88,13 +131,13 @@ app.on('ready', () => {
 
   checkInternetConnected(config)
     .then(() => {
-      console.log("Connection disponible");
-      connectToDatabase();
+      console.log("Conexión disponible");
+      initializeDatabase();
       loadMainWindow();
     })
     .catch((err) => {
       console.log("No hay conexión", err);
-      connectToDatabase();
+      initializeDatabase();
       loadMainWindow();
     });
 
