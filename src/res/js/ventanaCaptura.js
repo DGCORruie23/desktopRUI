@@ -1,104 +1,113 @@
-
-
-// function actualizarFechaHora() {
-//     var fechaElemento = document.getElementById('fecha');
-//     var horaElemento = document.getElementById('hora');
-//     var fechaActual = moment().format('YYYY-MM-DD');
-//     var horaActual = moment().format('HH:mm');
-//     fechaElemento.textContent = fechaActual;
-//     horaElemento.textContent = horaActual;
-// }
-// setInterval(actualizarFechaHora, 1000);
-// actualizarFechaHora();
-
-
 let puntosDeRevision = [];
 let puntosInternacion = [];
+let puntosUnificados = [];
 
-function buscarPunto() {
-  const input = document.getElementById('selector');
-  const textoBusqueda = input.value.toLowerCase();
-  const selector = document.getElementById('selector');
-  selector.innerHTML = '<option value="" selected>Selecciona un punto de revisión</option>'; // Limpiar opciones anteriores
-  
-  const oficinaR = document.getElementById('oficinaR').value;
-  // let ags = puntosDeRevision.filter(puntosDeRevision => puntosDeRevision.oficinaR == estado);
-  console.log(oficinaR);
+// Función para realizar fetch de datos y unificar los resultados
+async function fetchData() {
+  try {
+    const [data1, data2] = await Promise.all([
+      fetch('https://ruie.dgcor.com/info/Fuerza').then(response => response.json()),
+      fetch('https://ruie.dgcor.com/info/PuntosI').then(response => response.json())
+    ]);
 
-  puntosDeRevision = puntosDeRevision.filter(puntosDeRevision => puntosDeRevision.oficinaR == oficinaR);
+    puntosDeRevision = data1.map(punto => ({
+      nombre: punto.nomPuntoRevision,
+      estado: punto.oficinaR,
+      tipo: punto.tipoP
+    }));
 
-  console.log(puntosDeRevision);
-  puntosDeRevision.forEach(punto => {
-    const oficinaR = punto.oficinaR.toLowerCase();
-    const nomPuntoRevision = punto.nomPuntoRevision.toLowerCase();
-    if (oficinaR.includes(textoBusqueda) || nomPuntoRevision.includes(textoBusqueda)) {
-      const option = document.createElement('option');
-      option.text = punto.oficinaR + ' - ' + punto.nomPuntoRevision;
-      option.value = puntosDeRevision.indexOf(punto); // Guardar el índice del punto en el array
-      selector.add(option);
-    }
-  });
-}
+    puntosInternacion = data2.map(punto => ({
+      nombre: punto.nombrePunto,
+      estado: punto.estadoPunto,
+      tipo: punto.tipoPunto
+    }));
 
-function buscarPuntoI() {
-  const input = document.getElementById('selector');
-  const textoBusqueda = input.value.toLowerCase();
-  const selector = document.getElementById('selector');
-  
-  const oficinaR = document.getElementById('oficinaR').value;
-  // let ags = puntosDeRevision.filter(puntosDeRevision => puntosDeRevision.oficinaR == estado);
-  console.log(oficinaR);
-
-  puntosInternacion = puntosInternacion.filter(puntosInternacion => puntosInternacion.estadoPunto == oficinaR);
-
-  console.log(puntosInternacion);
-  puntosInternacion.forEach(punto => {
-    const oficinaR = punto.estadoPunto.toLowerCase();
-    const nombrePunto = punto.nombrePunto.toLowerCase();
-    if (oficinaR.includes(textoBusqueda) || nombrePunto.includes(textoBusqueda)) {
-      const option = document.createElement('option');
-      option.text = punto.estadoPunto + ' - ' + punto.nombrePunto;
-      option.value = puntosInternacion.indexOf(punto); // Guardar el índice del punto en el array
-      selector.add(option);
-    }
-  });
-}
-
-
-// function mostrarDetalle() {
-//   const selector = document.getElementById('selector');
-//   const selectedIndex = selector.value;
-//   if (selectedIndex !== "") {
-//     const puntoSeleccionado = puntosDeRevision[selectedIndex];
-//     alert(`Nombre del Punto de Revisión: ${puntoSeleccionado.nomPuntoRevision}\nOficina: ${puntoSeleccionado.oficinaR}`);
-//   }
-// }
-
-function mostrarDetalleI() {
-  const selector = document.getElementById('selector');
-  const selectedIndex = selector.value;
-  if (selectedIndex !== "") {
-    const puntoSeleccionado = puntosInternacion[selectedIndex];
-    alert(`Nombre del Punto de Revisión: ${puntoSeleccionado.nombrePunto}\nOficina: ${puntoSeleccionado.estadoPunto}`);
+    puntosUnificados = [...puntosDeRevision, ...puntosInternacion];
+    buscarPunto(); // Mostrar todos los puntos al cargar
+  } catch (err) {
+    console.error(err);
   }
 }
 
-// Cargar los datos al cargar la página
-fetch('https://ruie.dgcor.com/info/Fuerza', {method: 'GET', headers: {'User-Agent': 'insomnia/8.6.1'}})
-  .then(response => response.json())
-  .then(data => {
-    puntosDeRevision = data;
-    buscarPunto(); // Mostrar todos los puntos de revisión al cargar
-  })
-  .catch(err => console.error(err));
-
-fetch('https://ruie.dgcor.com/info/PuntosI', {method: 'GET', headers: {'User-Agent': 'insomnia/8.6.1'}})
-  .then(response => response.json())
-  .then(data => {
-    puntosInternacion = data;
-    buscarPuntoI(); // Mostrar todos los puntos de revisión al cargar
-  })
-  .catch(err => console.error(err));
-
-
+// Función para buscar y filtrar puntos
+function buscarPunto() {
+  const input = document.getElementById('selector');
+  const textoBusqueda = input.value.toLowerCase().trim();
+  const selector = document.getElementById('selector');
+  selector.innerHTML = '<option value="" selected>Selecciona un punto de revisión</option>'; // Limpiar opciones anteriores
   
+  const oficinaR = document.getElementById('oficinaR').value.toLowerCase().trim();
+
+  puntosUnificados.forEach((punto, index) => {
+    const nombrePunto = punto.nombre.toLowerCase();
+    const estadoPunto = punto.estado.toLowerCase();
+    const coincideOficina = oficinaR === '' || estadoPunto === oficinaR;
+    
+    const coincideBusqueda = textoBusqueda === '' || 
+      nombrePunto.split(/\s+/).some(palabra => palabra === textoBusqueda) || 
+      estadoPunto.split(/\s+/).some(palabra => palabra === textoBusqueda);
+
+    if (coincideOficina && coincideBusqueda) {
+      const option = document.createElement('option');
+      option.text = `${punto.estado} - ${punto.nombre} - ${punto.tipo}`;
+      option.value = index; // Guardar el índice del punto en el array unificado
+      selector.add(option);
+    }
+  });
+}
+
+// Función para mostrar detalles del punto seleccionado
+function mostrarDetalle() {
+  const selector = document.getElementById('selector');
+  const selectedIndex = selector.value;
+  if (selectedIndex !== "") {
+    const puntoSeleccionado = puntosUnificados[selectedIndex];
+    alert(`Nombre del Punto: ${puntoSeleccionado.nombre}\nEstado: ${puntoSeleccionado.estado}\nTipo: ${puntoSeleccionado.tipo}`);
+  }
+}
+
+// Función para actualizar los puntos según el tipo de rescate
+async function actualizarPuntosPorTipo() {
+  const tRescate = document.getElementById('tRescate').value.toLowerCase();
+  const oficinaR = document.getElementById('oficinaR').value.toLowerCase();
+  const nPunto = document.getElementById('nPunto');
+  nPunto.innerHTML = '<option value="" selected>Selecciona un nombre del punto</option>'; // Limpiar opciones anteriores
+
+  let puntosFiltrados = puntosUnificados;
+
+  // Si el tipo de rescate es "Hotel", realizar un nuevo fetch
+  if (tRescate === 'hotel') {
+    try {
+      const response = await fetch('http://ruie.dgcor.com/info/Municipios');
+      const data = await response.json();
+
+      puntosFiltrados = data.filter(punto => punto.estado.toLowerCase() === oficinaR).map(punto => ({
+        nombre: punto.nomMunicipio,
+        estado: punto.estado,
+        tipo: 'Hotel'
+      }));
+    } catch (err) {
+      console.error(err);
+      return;
+    }
+  } else {
+    puntosFiltrados = puntosUnificados.filter(punto => {
+      const tipoPunto = punto.tipo.toLowerCase();
+      const tipoEquivalente = tipoPunto === 'aereos' ? 'aeropuerto' : tipoPunto === 'terrestres' ? 'carretero' : tipoPunto;
+      return (tipoEquivalente === tRescate || punto.tipo.toLowerCase() === tRescate) && punto.estado.toLowerCase() === oficinaR;
+    });
+  }
+
+  puntosFiltrados.forEach(punto => {
+    const option = document.createElement('option');
+    option.text = punto.nombre;
+    option.value = punto.nombre;
+    nPunto.add(option);
+  });
+}
+
+// Cargar los datos al cargar la página
+fetchData();
+
+// Event listener para el cambio en el tipo de rescate
+document.getElementById('tRescate').addEventListener('change', actualizarPuntosPorTipo);

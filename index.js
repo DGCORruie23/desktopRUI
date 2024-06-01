@@ -100,11 +100,6 @@ function loadMainWindow() {
         mainWindow.hide();
         mainWindow.close();
 
-        if (userExists) {
-          createThirdWindowWithUser(userData);
-        } else {
-          createSecondWindow();
-        }
       }
     }, INTERVAL_DELAY);
   });
