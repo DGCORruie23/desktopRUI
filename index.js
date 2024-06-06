@@ -2,12 +2,15 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 const checkInternetConnected = require('check-internet-connected');
-const { existsSync, readdirSync } = require('fs');
+const { readdirSync } = require('fs');
 
 let mainWindow, db, progressInterval, secondWindow, thirdWindow, NacWindow, FamWindow;
 let userExists = false;
 let userData = null;
 let mainWindowReady = false;
+
+// Deshabilitar la aceleración por hardware
+app.disableHardwareAcceleration();
 
 function initializeDatabase() {
   const dbFiles = readdirSync(__dirname).filter(file => file.endsWith('.db'));
@@ -99,12 +102,10 @@ function loadMainWindow() {
         mainWindow.setProgressBar(-1);
         mainWindow.hide();
         mainWindow.close();
-
       }
     }, INTERVAL_DELAY);
   });
 }
-
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
@@ -147,7 +148,14 @@ app.on('ready', () => {
 });
 
 async function checkForUser() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
+    if (!db) {
+      console.error('La base de datos no está abierta.');
+      userExists = false;
+      resolve();
+      return;
+    }
+
     db.get('SELECT * FROM Users LIMIT 1', (err, row) => {
       if (err) {
         console.error('Error al consultar la base de datos:', err);
@@ -203,7 +211,7 @@ function handleValidado(event, validado) {
       secondWindow.close();
       secondWindow = null;
     }
-    const userData = {
+    userData = {
       nickname: validado.nickname,
       nombre: validado.nombre,
       apellido: validado.apellido,
@@ -238,8 +246,9 @@ function createThirdWindowWithUser(user) {
     thirdWindow.on('closed', () => {
       console.log('Third window closed');
       ipcMain.removeListener('nacionalidad', handleNacionalidad);
-      ipcMain.removeListener('familia', handleFamilia);
+      ipcMain.removeListener('familia', handleFamilia); // <-- Aquí está la referencia
       thirdWindow = null;
+      checkForOpenWindows();
     });
 
     thirdWindow.once('ready-to-show', () => {
@@ -249,7 +258,7 @@ function createThirdWindowWithUser(user) {
     });
 
     ipcMain.once('nacionalidad', handleNacionalidad);
-    ipcMain.once('familia', handleFamilia);
+    ipcMain.once('familia', handleFamilia); // <-- Aquí está la referencia
 
     console.log("Third window setup complete");
   } catch (error) {
@@ -265,17 +274,6 @@ function handleNacionalidad(event, nac) {
       thirdWindow = null; // Asegurar que se libera la referencia
     }
     createNacWindow();
-  }
-}
-
-function handleFamilia(event, fam) {
-  if (fam === 1) {
-    if (thirdWindow) {
-      thirdWindow.hide();
-      thirdWindow.close();
-      thirdWindow = null; // Asegurar que se libera la referencia
-    }
-    createFamWindow();
   }
 }
 
@@ -298,6 +296,7 @@ function createNacWindow() {
   NacWindow.on('closed', () => {
     NacWindow = null;
     ipcMain.removeListener('retCap', handleRetCapNac);
+    checkForOpenWindows();
   });
 
   NacWindow.once('ready-to-show', () => {
@@ -337,6 +336,7 @@ function createFamWindow() {
   FamWindow.on('closed', () => {
     FamWindow = null;
     ipcMain.removeListener('retCap', handleRetCapFam);
+    checkForOpenWindows();
   });
 
   FamWindow.once('ready-to-show', () => {
@@ -357,6 +357,17 @@ function handleRetCapFam(event, retCaptura) {
   }
 }
 
+function handleFamilia(event, fam) {
+  if (fam === 1) {
+    if (thirdWindow) {
+      thirdWindow.hide();
+      thirdWindow.close();
+      thirdWindow = null; // Asegurar que se libera la referencia
+    }
+    createFamWindow();
+  }
+}
+
 ipcMain.handle('executeQuery', async (event, query, params) => {
   console.log('Ejecutando consulta:', query, 'con parametros:', params);
   return new Promise((resolve, reject) => {
@@ -373,7 +384,10 @@ ipcMain.handle('executeQuery', async (event, query, params) => {
 });
 
 app.on('window-all-closed', () => {
-  db.close();
+  if (db) {
+    db.close();
+    db = null;
+  }
   if (process.platform !== 'darwin') {
     app.quit();
   }
@@ -396,3 +410,13 @@ app.on('certificate-error', (event, webContents, url, error, certificate, callba
 
 app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
 app.enableSandbox();
+
+function checkForOpenWindows() {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    if (db) {
+      db.close();
+      db = null;
+    }
+    app.quit();
+  }
+}
