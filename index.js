@@ -15,7 +15,6 @@ app.disableHardwareAcceleration();
 function initializeDatabase() {
   const dbFiles = readdirSync(__dirname).filter(file => file.endsWith('.db'));
   let dbPath;
-
   if (dbFiles.length > 0) {
     dbPath = path.join(__dirname, dbFiles[0]);
     console.log('Base de datos encontrada:', dbPath);
@@ -46,6 +45,60 @@ function initializeDatabase() {
             console.error('Error al crear la tabla Users:', err);
           } else {
             console.log('Tabla Users creada correctamente.');
+          }
+        });
+        db.run(`CREATE TABLE "Rescates" (
+          "id" INTEGER NOT NULL,
+          "oficinaRepre" TEXT,
+          "fecha" TEXT,
+          "hora" TEXT,
+          "nombreAgente" TEXT,
+          "aeropuerto" BOOLEAN,
+          "carretero" BOOLEAN,
+          "tipoVehic" TEXT,
+          "lineaAutobus" TEXT,
+          "numeroEcono" TEXT,
+          "placas" TEXT,
+          "vehiculoAseg" BOOLEAN,
+          "casaSeguridad" BOOLEAN,
+          "centralAutobus" BOOLEAN,
+          "ferrocarril" BOOLEAN,
+          "empresa" TEXT,
+          "hotel" BOOLEAN,
+          "nombreHotel" TEXT,
+          "puestosADispo" BOOLEAN,
+          "juezCalif" BOOLEAN,
+          "reclusorio" BOOLEAN,
+          "policiaFede" BOOLEAN,
+          "dif" BOOLEAN,
+          "policiaEsta" BOOLEAN,
+          "policiaMuni" BOOLEAN,
+          "guardiaNaci" BOOLEAN,
+          "fiscalia" BOOLEAN,
+          "otrasAuto" BOOLEAN,
+          "voluntarios" BOOLEAN,
+          "otro" BOOLEAN,
+          "presuntosDelincuentes" BOOLEAN,
+          "numPresuntosDelincuentes" INT,
+          "municipio" TEXT,
+          "puntoEstra" TEXT,
+          "nacionalidad" TEXT,
+          "iso3" TEXT,
+          "nombre" TEXT,
+          "apellidos" TEXT,
+          "noIdentidad" TEXT,
+          "parentesco" TEXT,
+          "fechaNacimiento" TEXT,
+          "sexo" BOOLEAN,
+          "embarazo" BOOLEAN,
+          "numFamilia" INT,
+          "edad" INT,
+          PRIMARY KEY("id" AUTOINCREMENT)
+        )`, (err) => {
+          if (err) {
+            console.error('Error al crear la tabla Rescates:', err);
+          } else {
+            console.log('Tabla Rescates creada correctamente.');
           }
         });
       }
@@ -141,9 +194,9 @@ app.on('ready', () => {
   ipcMain.on('main-window-ready', () => {
     mainWindowReady = true;
     console.log('mainWindow está listo para recibir datos');
-    if (userExists && mainWindow && !mainWindow.isDestroyed() && mainWindow.webContents) {
-      mainWindow.webContents.send('update-data', userData);
-    }
+    // if (userExists && mainWindow && !mainWindow.isDestroyed() && mainWindow.webContents) {
+    //   mainWindow.webContents.send('update-data', userData);
+    // }
   });
 });
 
@@ -179,6 +232,7 @@ function createSecondWindow() {
   if (secondWindow) return; // Evitar crear múltiples ventanas
 
   secondWindow = new BrowserWindow({
+
     width: 800,
     height: 600,
     show: false,
@@ -197,7 +251,8 @@ function createSecondWindow() {
   });
 
   secondWindow.once('ready-to-show', () => {
-    secondWindow.show();
+    secondWindow.show
+    ();
   });
 
   ipcMain.once('validado', handleValidado);
@@ -209,6 +264,7 @@ function handleValidado(event, validado) {
     if (secondWindow) {
       secondWindow.hide();
       secondWindow.close();
+     
       secondWindow = null;
     }
     userData = {

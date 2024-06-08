@@ -171,6 +171,8 @@ window.addEventListener('DOMContentLoaded', () => {
   
             } else {
                 validado = 0;
+                console.log("validado vale");
+                console.log(validado);
                 deleteUserAll();
                 window.myAPI.printNameToCLI(validado);
             }

@@ -111,3 +111,4 @@ fetchData();
 
 // Event listener para el cambio en el tipo de rescate
 document.getElementById('tRescate').addEventListener('change', actualizarPuntosPorTipo);
+
