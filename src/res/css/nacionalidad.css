@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FFFFFF; /* Color de fondo */
+    color: #000000; /* Color de texto principal */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+.header {
+    text-align: center;
+    margin: 20px auto;
+}
+
+.header img {
+    width: 100px; /* Ajusta el tamaño del ícono según sea necesario */
+}
+
+.header h1 {
+    font-size: 24px;
+    margin-top: 10px;
+    color: #9F2241; /* Color de texto de título */
+}
+
+.search {
+    margin: 20px auto;
+    width: 80%; /* Ajusta el ancho del contenedor de búsqueda */
+    max-width: 500px; /* Ancho máximo del buscador */
+    position: relative;
+}
+
+.search input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+}
+
+.countries {
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 10px;
+    max-height: 50vh; /* Limita la altura de la lista al 50% del viewport */
+    overflow-y: auto;
+    margin-top: 1px; /* Ajusta para que la lista esté justo debajo del input */
+    display: none; /* Ocultar la lista de países inicialmente */
+    position: absolute;
+    width: 100%;
+    background-color: #FFFFFF; /* Fondo blanco para la lista desplegable */
+    z-index: 1; /* Asegurarse de que esté sobre otros elementos */
+}
+
+.countries p {
+    padding: 8px 0;
+    border-bottom: 1px solid #EEEEEE;
+    cursor: pointer;
+}
+
+.countries p:hover {
+    background-color: #DDC9A3; /* Fondo marrón claro al pasar el mouse */
+}
+
+#backButton, #btnNacionalidad, #saveButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: fixed;
+    bottom: 10px;
+}
+
+#backButton {
+    background-color: #DDC9A3;
+    color: #FFFFFF;
+    left: 10px;
+}
+
+#backButton:hover {
+    background-color: #BFA982; /* Cambio de color al pasar el mouse */
+}
+
+#btnNacionalidad {
+    background-color: #DDC9A3;
+    color: #FFFFFF;
+    right: 120px; /* Ajuste del margen derecho */
+    margin-left: 10px; /* Añadir margen izquierdo para espaciado */
+}
+
+#btnNacionalidad:hover {
+    background-color: #BFA982; /* Cambio de color al pasar el mouse */
+}
+
+#saveButton {
+    background-color: #9F2241;
+    color: #FFFFFF;
+    right: 10px; /* Ajuste del margen derecho */
+    display: flex;
+    align-items: center;
+}
+
+#saveButton:hover {
+    background-color: #691C32; /* Cambio de color al pasar el mouse */
+}
+

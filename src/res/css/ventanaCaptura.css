@@ -197,3 +197,342 @@ footer {
 .button:hover {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
+
+
+.user-data {
+    margin: 20px 0;
+}
+.user-data div {
+    margin-bottom: 10px;
+}
+
+
+/* Style for rescue menu */
+.rescue-menu {
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.rescue-menu label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #235B4E;
+}
+
+.rescue-menu select {
+    padding: 5px;
+    border: 1px solid #235B4E;
+    border-radius: 5px;
+}
+
+/* Style for search bar */
+.search-bar {
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.search-bar label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #235B4E;
+}
+
+.search-bar input {
+    padding: 5px;
+    border: 1px solid #235B4E;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Style for rescue points */
+.rescue-points {
+    margin-top: 20px;
+}
+
+.rescue-points div {
+    padding: 10px;
+    border: 1px solid #235B4E;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #DDC9A3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.rescue-menu {
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.rescue-menu label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #235B4E;
+}
+
+.rescue-menu select {
+    padding: 5px;
+    border: 1px solid #235B4E;
+    border-radius: 5px;
+}
+
+.search-bar {
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.search-bar label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #235B4E;
+}
+
+.search-bar select {
+    padding: 5px;
+    border: 1px solid #235B4E;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+}
+
+
+.rescue-points {
+    margin-top: 20px;
+}
+
+.rescue-points div {
+    padding: 10px;
+    border: 1px solid #235B4E;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #DDC9A3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.rescue-menu {
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.rescue-menu label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #235B4E;
+}
+
+.rescue-menu select {
+    padding: 5px;
+    border: 1px solid #235B4E;
+    border-radius: 5px;
+}
+
+.search-bar {
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.search-bar label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #235B4E;
+}
+
+.search-bar input {
+    padding: 5px;
+    border: 1px solid #235B4E;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Style for suggestions */
+.suggestions {
+    position: absolute;
+    border: 1px solid #235B4E;
+    border-radius: 5px;
+    background-color: #DDC9A3;
+    width: 100%;
+    max-width: 400px;
+    z-index: 1000;
+    max-height: 200px; /* Limit height to prevent overflow */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.suggestions div {
+    padding: 5px 10px; /* Adjust padding for smaller size */
+    cursor: pointer;
+    font-size: 14px; /* Adjust font size */
+}
+
+.suggestions div:hover {
+    background-color: #235B4E;
+    color: #FFFFFF;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Style for suggestions */
+.suggestions {
+    position: absolute;
+    border: 1px solid #235B4E;
+    border-radius: 5px;
+    background-color: #DDC9A3;
+    width: 100%;
+    max-width: 400px;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 0; /* Adjust margin to be closer to the input */
+    padding: 0; /* Remove padding for a tighter layout */
+}
+
+.suggestions div {
+    padding: 8px 10px; /* Adjust padding for smaller size */
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.suggestions div:hover {
+    background-color: #235B4E;
+    color: #FFFFFF;
+}
+
+/* Adjusting the search bar container to ensure suggestions are properly aligned */
+.search-bar {
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    position: relative;
+    display: inline-block; /* Ensure the suggestions are aligned correctly */
+    width: 100%;
+    max-width: 400px;
+}
+
+.search-bar label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #235B4E;
+}
+
+.search-bar input {
+    padding: 5px;
+    border: 1px solid #235B4E;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

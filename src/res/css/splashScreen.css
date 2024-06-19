@@ -61,3 +61,39 @@ body {
 .dispnone {
   display: none;
 }
+
+
+
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+#loadingText {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+#progressBarContainer {
+  width: 80%;
+  height: 30px;
+  background-color: #ddd;
+  border-radius: 15px;
+  overflow: hidden;
+}
+#progressBar {
+  height: 100%;
+  width: 0%;
+  background-color: #10312B;
+  border-radius: 15px 0 0 15px;
+}
+
+
+
+.loadingTxt {
+  color: #ffffff;
+}
