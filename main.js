@@ -35,7 +35,7 @@ function createLoadingWindow() {
             clearInterval(interval);
             checkAndCreateDatabase();
         }
-    }, 50); // 50ms interval
+    }, 50);
 }
 
 function createNacionalidad() {

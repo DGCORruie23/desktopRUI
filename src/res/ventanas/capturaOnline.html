@@ -19,45 +19,68 @@
             <div id="user-data" class="user-data"></div>
             <img src="../icons/ic_calendar_month_24.svg" alt="Guardar">
             <div id="current-date" class="current-date"></div>
-            <div id="current-date" class="current-date"></div>
-            <!-- Menu for selecting rescue types -->
+
             <div class="rescue-menu">
                 <label for="tRescate">Tipo de Rescate:</label>
-                <select id="tRescate">
-                    <option value="Aeropuerto" data-style="../icons/ic_air_24.svg">Aeropuerto</option>
-                    <option value="Carretero">Carretero</option>
-                    <option value="Casa de Seguridad">Casa de Seguridad</option>
-                    <option value="Central de autobús">Central de Autobuses</option>
-                    <option value="Ferrocarril">Ferrocarril</option>
-                    <option value="Hotel">Hotel</option>
-                    <option value="Puestos a Disposicion">Puestos a Disposicion</option>
-                    <option value="Voluntarios">Voluntarios</option>
-                </select>
+                <br><br>
+                <div class="custom-select">
+                    <div class="select-selected">
+                        <img src="../icons/ic_air_24.svg" alt="Aeropuerto" style="width: 20px;">
+                        <span>Aeropuerto</span>
+                    </div>
+                    <div class="select-items">
+                        <div>
+                            <img src="../icons/ic_air_24.svg" alt="Aeropuerto" style="width: 20px;">
+                            <span>Aeropuerto</span>
+                        </div>
+                        <div>
+                            <img src="../icons/ic_road.svg" alt="Carretero" style="width: 20px;">
+                            <span>Carretero</span>
+                        </div>
+                        <div>
+                            <img src="../icons/ic_casa_24.svg" alt="Casa de Seguridad" style="width: 20px;">
+                            <span>Casa de Seguridad</span>
+                        </div>
+                        <div>
+                            <img src="../icons/ic_bus_24.svg" alt="Central de Autobuses" style="width: 20px;">
+                            <span>Central de autobús</span>
+                        </div>
+                        <div>
+                            <img src="../icons/ic_tren_24.svg" alt="Ferrocarril" style="width: 20px;">
+                            <span>Ferrocarril</span>
+                        </div>
+                        <div>
+                            <img src="../icons/ic_hotel.svg" alt="Hotel" style="width: 20px;">
+                            <span>Hotel</span>
+                        </div>
+                        <div>
+                            <img src="../icons/ic_police_24.svg" alt="Puestos a Disposicion" style="width: 20px;">
+                            <span>Puestos a Disposicion</span>
+                        </div>
+                        <div>
+                            <img src="../icons/ic_voluntarios_24.svg" alt="Voluntarios" style="width: 20px;">
+                            <span>Voluntarios</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="search-bar">
                 <label for="nPunto">Buscar Puntos de Rescate:</label>
-                <input type="text" id="nPunto" oninput="buscarPunto()" placeholder="Escribe para buscar puntos...">
+                <input type="text" id="nPunto" placeholder="Escribe para buscar puntos...">
                 <div id="suggestions" class="suggestions"></div>
                 <span id="fillMessage" class="marron-f" style="display: none;">LLENAR PARA CONTINUAR</span>
             </div>
 
-
             <button id="btnNacionalidad" class="marron">
-                <span style="font-size: 20px; font-weight: bold;"><img src="../icons/ic_add_40.svg" alt="Nacionalidad"
-                        style="width: 20px; vertical-align: middle;"></span> Nacionalidad
+                <span style="font-size: 20px; font-weight: bold;"><img src="../icons/ic_add_40.svg" alt="Nacionalidad" style="width: 20px; vertical-align: middle;"></span> Nacionalidad
             </button>
 
             <button id="btnFamilia" class="marron">
-                <span style="font-size: 20px; font-weight: bold;"><img src="../icons/ic_add_40.svg" alt="Familia"
-                        style="width: 20px; vertical-align: middle;"></span> Familia
+                <span style="font-size: 20px; font-weight: bold;"><img src="../icons/ic_add_40.svg" alt="Familia" style="width: 20px; vertical-align: middle;"></span> Familia
             </button>
 
         </div>
-        <div class="summary-panel">
-
-
-        </div>
-
+        <div class="summary-panel"></div>
     </div>
 
     <footer class="verde">

@@ -1,15 +1,6 @@
 const { ipcRenderer } = require('electron');
 
 ipcRenderer.on('user-data', async (event, userData) => {
-    // const userDataContainer = document.getElementById('user-data');
-    // userDataContainer.innerHTML = `
-    //     <div><strong>Nickname:</strong> ${userData.nickname}</div>
-    //     <div><strong>Nombre:</strong> ${userData.nombre}</div>
-    //     <div><strong>Apellido:</strong> ${userData.apellido}</div>
-    //     <div><strong>Password:</strong> ${userData.password}</div>
-    //     <div><strong>Estado:</strong> ${userData.estado}</div>
-    //     <div><strong>Tipo:</strong> ${userData.tipo}</div>
-    // `;
     const estadoMap = {
         '1': 'AGUASCALIENTES',
         '2': 'BAJA CALIFORNIA',
@@ -104,8 +95,10 @@ ipcRenderer.on('user-data', async (event, userData) => {
         document.getElementById('suggestions').innerHTML = ''; 
     }
 
-    async function actualizarPuntosPorTipo() {
-        const tRescate = document.getElementById('tRescate').value.toLowerCase();
+    document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosUnificados));
+
+    async function actualizarPuntosPorTipo(tipoRescate) {
+        const tRescate = tipoRescate.toLowerCase();
 
         let puntosFiltrados = [];
 
@@ -125,85 +118,59 @@ ipcRenderer.on('user-data', async (event, userData) => {
         document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosFiltrados));
     }
 
-    document.getElementById('tRescate').addEventListener('change', actualizarPuntosPorTipo);
-    document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosUnificados));
-
     await fetchPuntosDeDB();
-    await actualizarPuntosPorTipo();
+    const selectedValue = document.querySelector('.select-selected span').innerText.toLowerCase();
+    actualizarPuntosPorTipo(selectedValue);
+
+    const customSelect = document.querySelector('.custom-select');
+    const selectSelected = customSelect.querySelector('.select-selected');
+    const selectItems = customSelect.querySelector('.select-items');
+
+    selectSelected.addEventListener('click', () => {
+        selectItems.style.display = selectItems.style.display === 'none' || selectItems.style.display === '' ? 'block' : 'none';
+    });
+
+    selectItems.addEventListener('click', (e) => {
+        if (e.target.tagName === 'DIV') {
+            const selectedOption = e.target;
+            selectSelected.innerHTML = selectedOption.innerHTML;
+            selectItems.style.display = 'none';
+            actualizarPuntosPorTipo(selectedOption.querySelector('span').innerText);
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!customSelect.contains(e.target)) {
+            selectItems.style.display = 'none';
+        }
+    });
+
+    const btnNacionalidad = document.getElementById('btnNacionalidad');
+    const fillMessage = document.getElementById('fillMessage');
+
+    btnNacionalidad.addEventListener('click', function() {
+        const inputPunto = document.getElementById('nPunto').value.trim();
+
+        if (inputPunto.length > 0) {
+            ipcRenderer.send('abrir-nueva-ventana');
+        } else {
+            fillMessage.style.display = 'inline-block'; 
+            setTimeout(() => {
+                fillMessage.style.display = 'none';
+            }, 3000);
+        }
+    });
+
+    btnFamilia.addEventListener('click', function() {
+        const inputPunto = document.getElementById('nPunto').value.trim();
+
+        if (inputPunto.length > 0) {
+            ipcRenderer.send('familia');
+        } else {
+            fillMessage.style.display = 'inline-block'; 
+            setTimeout(() => {
+                fillMessage.style.display = 'none';
+            }, 3000);
+        }
+    });
 });
-
-
-
-const btnNacionalidad = document.getElementById('btnNacionalidad');
-const fillMessage = document.getElementById('fillMessage');
-
-
-btnNacionalidad.addEventListener('click', function() {
-    const inputPunto = document.getElementById('nPunto').value.trim();
-
-    if (inputPunto.length > 0) {
-
-        ipcRenderer.send('abrir-nueva-ventana');
-    } else {
-        fillMessage.style.display = 'inline-block'; 
-        setTimeout(() => {
-            fillMessage.style.display = 'none';
-        }, 3000);
-    }
-});
-
-btnFamilia.addEventListener('click', function() {
-    const inputPunto = document.getElementById('nPunto').value.trim();
-
-    if (inputPunto.length > 0) {
-
-        ipcRenderer.send('familia');
-    } else {
-        fillMessage.style.display = 'inline-block'; 
-        setTimeout(() => {
-            fillMessage.style.display = 'none';
-        }, 3000);
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
