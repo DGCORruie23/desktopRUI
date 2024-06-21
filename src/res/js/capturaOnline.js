@@ -114,6 +114,8 @@ ipcRenderer.on('user-data', async (event, userData) => {
 
         console.log("Puntos Filtrados:", puntosFiltrados);
 
+        const inputPunto = document.getElementById('nPunto');
+        inputPunto.value = '';
         document.getElementById('nPunto').removeEventListener('input', buscarPunto);
         document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosFiltrados));
     }
@@ -138,6 +140,7 @@ ipcRenderer.on('user-data', async (event, userData) => {
             actualizarPuntosPorTipo(selectedOption.querySelector('span').innerText);
         }
     });
+    
 
     document.addEventListener('click', (e) => {
         if (!customSelect.contains(e.target)) {
@@ -150,27 +153,95 @@ ipcRenderer.on('user-data', async (event, userData) => {
 
     btnNacionalidad.addEventListener('click', function() {
         const inputPunto = document.getElementById('nPunto').value.trim();
-
-        if (inputPunto.length > 0) {
-            ipcRenderer.send('abrir-nueva-ventana');
-        } else {
-            fillMessage.style.display = 'inline-block'; 
+    
+        if (inputPunto.length === 0) {
+            fillMessage.style.display = 'inline-block';
             setTimeout(() => {
                 fillMessage.style.display = 'none';
             }, 3000);
+            return;
         }
+    
+        const puntoSeleccionado = puntosUnificados.find(punto => {
+            return `${punto.nombre} (${punto.tipo})` === inputPunto;
+        });
+    
+        if (!puntoSeleccionado) {
+            alert('El punto seleccionado no existe en la base de datos.');
+            // Restablecer el evento input del buscador después de cerrar el alert
+            document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosUnificados));
+            return;
+        }
+    
+        ipcRenderer.send('abrir-nueva-ventana');
+    
+        // Restablecer el evento input del buscador después de realizar la acción
+        document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosUnificados));
     });
-
+    
+    
     btnFamilia.addEventListener('click', function() {
         const inputPunto = document.getElementById('nPunto').value.trim();
-
-        if (inputPunto.length > 0) {
-            ipcRenderer.send('familia');
-        } else {
-            fillMessage.style.display = 'inline-block'; 
+    
+        if (inputPunto.length === 0) {
+            fillMessage.style.display = 'inline-block';
             setTimeout(() => {
                 fillMessage.style.display = 'none';
             }, 3000);
+            return;
         }
+    
+        const puntoSeleccionado = puntosUnificados.find(punto => {
+            return `${punto.nombre} (${punto.tipo})` === inputPunto;
+        });
+    
+        if (!puntoSeleccionado) {
+            alert('El punto seleccionado no existe en la base de datos.');
+            return;
+        }
+    
+        ipcRenderer.send('familia');
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const updateDateTime = () => {
+    const currentDate = new Date();
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const year = currentDate.getFullYear();
+    const formattedDate = `${day}-${month}-${year}`;
+
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const formattedTime = `${hours}:${minutes}`;
+
+    const dateElement = document.getElementById('current-date');
+    dateElement.textContent = formattedDate;
+
+    const timeElement = document.getElementById('current-time');
+    timeElement.textContent = formattedTime;
+};
+
+// Llamar a la función para actualizar la fecha y hora cada segundo
+setInterval(updateDateTime, 1000);
+
+// También llamar a la función una vez para que se muestre la fecha y hora inicial
+updateDateTime();

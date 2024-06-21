@@ -1,6 +1,5 @@
 body {
     font-family: 'Arial', sans-serif;
-    /*background: linear-gradient(to left, #DDC9A3 ,#235B4E);*/
     color: #000000;
     margin: 0;
     padding: 0;
@@ -44,7 +43,6 @@ header {
     padding: 10px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-
     transform-origin: top left;
     cursor: pointer;
     transition: left 0.3s;
@@ -89,7 +87,7 @@ button {
 }
 
 button:hover {
-    background-color: #235B4E;
+    background-color: #1d4a42;
 }
 
 .error-message {
@@ -103,7 +101,6 @@ footer {
     padding: 10px 0;
 }
 
-
 .content-input input,
 .content-select select {
     appearance: none;
@@ -113,41 +110,22 @@ footer {
 
 .content-select {
     max-width: 300px;
-    max-height: 30px;
     position: relative;
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-bottom: 10%;
-}
-
-
-.content-select select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-.content-select select::-ms-expand {
-    display: none;
+    margin: 10% 20% 10%;
 }
 
 .content-select select {
     display: inline-block;
     width: 100%;
     cursor: pointer;
-    padding: 2px 2px;
+    padding: 2px;
     height: 42px;
     outline: 0;
-    border: 0;
-    border-radius: 0;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
     background: #f0f0f0;
     font-size: 1em;
     color: black;
-    font-family:
-        'Quicksand', sans-serif;
-    border: 2px solid rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    position: relative;
     transition: all 0.25s ease;
 }
 
@@ -172,13 +150,6 @@ footer {
     margin-top: 3px;
 }
 
-
-
-
-
-
-
-
 .button {
     border: none;
     border-radius: 5px;
@@ -190,7 +161,6 @@ footer {
     font-size: 16px;
     margin-left: 30px;
     cursor: pointer;
-    -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
 }
 
@@ -198,14 +168,12 @@ footer {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
-
 .user-data {
     margin: 20px 0;
 }
 .user-data div {
     margin-bottom: 10px;
 }
-
 
 /* Style for rescue menu */
 .rescue-menu {
@@ -229,129 +197,6 @@ footer {
 .search-bar {
     margin: 20px 0;
     font-family: Arial, sans-serif;
-}
-
-.search-bar label {
-    margin-right: 10px;
-    font-weight: bold;
-    color: #235B4E;
-}
-
-.search-bar input {
-    padding: 5px;
-    border: 1px solid #235B4E;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 400px;
-}
-
-/* Style for rescue points */
-.rescue-points {
-    margin-top: 20px;
-}
-
-.rescue-points div {
-    padding: 10px;
-    border: 1px solid #235B4E;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #DDC9A3;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.rescue-menu {
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
-}
-
-.rescue-menu label {
-    margin-right: 10px;
-    font-weight: bold;
-    color: #235B4E;
-}
-
-.rescue-menu select {
-    padding: 5px;
-    border: 1px solid #235B4E;
-    border-radius: 5px;
-}
-
-.search-bar {
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
-}
-
-.search-bar label {
-    margin-right: 10px;
-    font-weight: bold;
-    color: #235B4E;
-}
-
-.search-bar select {
-    padding: 5px;
-    border: 1px solid #235B4E;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 400px;
-}
-
-
-.rescue-points {
-    margin-top: 20px;
-}
-
-.rescue-points div {
-    padding: 10px;
-    border: 1px solid #235B4E;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    background-color: #DDC9A3;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.rescue-menu {
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
-}
-
-.rescue-menu label {
-    margin-right: 10px;
-    font-weight: bold;
-    color: #235B4E;
-}
-
-.rescue-menu select {
-    padding: 5px;
-    border: 1px solid #235B4E;
-    border-radius: 5px;
-}
-
-.search-bar {
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
     position: relative;
 }
 
@@ -369,37 +214,10 @@ footer {
     max-width: 400px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Style for suggestions */
 .suggestions {
     position: absolute;
-    border: 1px solid #235B4E;
+    /* border: 1px solid #235B4E; */
     border-radius: 5px;
     background-color: #DDC9A3;
     width: 100%;
@@ -407,12 +225,12 @@ footer {
     z-index: 1000;
     max-height: 200px;
     overflow-y: auto;
-    margin-top: 0; /* Adjust margin to be closer to the input */
-    padding: 0; /* Remove padding for a tighter layout */
+    margin-top: 0;
+    padding: 0;
 }
 
 .suggestions div {
-    padding: 8px 10px; /* Adjust padding for smaller size */
+    padding: 8px 10px;
     cursor: pointer;
     font-size: 14px;
 }
@@ -421,115 +239,6 @@ footer {
     background-color: #235B4E;
     color: #FFFFFF;
 }
-
-/* Adjusting the search bar container to ensure suggestions are properly aligned */
-.search-bar {
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
-    position: relative;
-    display: inline-block; /* Ensure the suggestions are aligned correctly */
-    width: 100%;
-    max-width: 400px;
-}
-
-.search-bar label {
-    margin-right: 10px;
-    font-weight: bold;
-    color: #235B4E;
-}
-
-.search-bar input {
-    padding: 5px;
-    border: 1px solid #235B4E;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .custom-select {
     position: relative;
@@ -573,7 +282,7 @@ footer {
     background-color: #fff;
     border: 1px solid #ddd;
     width: 100%;
-    z-index: 99;
+    z-index: 1000;
     display: none;
     max-height: 200px;
     overflow-y: auto;
@@ -592,6 +301,7 @@ footer {
 .select-items div img {
     margin-right: 10px;
 }
+
 
 .select-items div:hover {
     background-color: #f1f1f1;
