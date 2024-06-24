@@ -310,3 +310,53 @@ footer {
 .same-as-selected {
     background-color: #d1d1d1;
 }
+
+
+.fillMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border: 2px solid #9F2241;
+    border-radius: 10px;
+    color: #691C32;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    text-align: center;
+    display: none; /* Initial state hidden */
+}
+
+
+
+
+.error-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border: 2px solid #9F2241;
+    border-radius: 10px;
+    color: #691C32;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    text-align: center;
+    display: none; /* Initial state hidden */
+    width: 80%;
+    max-width: 400px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.error-message.show {
+    display: block;
+    opacity: 1;
+}
+
+.error-message.hide {
+    opacity: 0;
+}

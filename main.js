@@ -38,7 +38,7 @@ function createLoadingWindow() {
     }, 50);
 }
 
-function createNacionalidad() {
+function createNacionalidad(datos) {
 
     nacionalidad = new BrowserWindow({
         width: 1366,
@@ -51,9 +51,16 @@ function createNacionalidad() {
     });
 
     nacionalidad.loadFile('./src/res/ventanas/nacionalidad.html');
+
+    nacionalidad.webContents.on('did-finish-load', () => {
+        nacionalidad.webContents.send('datos-capturados', datos);
+    });
+
     nacionalidad.on('closed', () => {
         nacionalidad = null;
     });
+
+
 }
 
 function createFamilia() {
@@ -74,7 +81,7 @@ function createFamilia() {
     });
 }
 
-function createPersona() {
+function createPersona(datos) {
 
     persona = new BrowserWindow({
         width: 1366,
@@ -87,6 +94,11 @@ function createPersona() {
     });
 
     persona.loadFile('./src/res/ventanas/persona.html');
+
+    persona.webContents.on('did-finish-load', () => {
+        persona.webContents.send('datos-nacionalidad', datos);
+    });
+
     persona.on('closed', () => {
         persona = null;
     });
@@ -855,13 +867,13 @@ ipcMain.handle('obtenerPuntosDeDB', async (event) => {
     }
 });
 
-ipcMain.on('abrir-nueva-ventana', () => {
-    // Cerrar la ventana actual de capturaOnline si existe
+ipcMain.on('abrir-nueva-ventana', (event,datos) => {
+
     if (userWindow) {
         userWindow.close();
     }
-    createNacionalidad();
-
+    createNacionalidad(datos);
+    console.log('Datos recibidos en nacionalidad:', datos);
 });
 
 
@@ -874,13 +886,14 @@ ipcMain.on('familia', () => {
 
 });
 
-ipcMain.on('cerrarNacionalidadCrearPersona', () => {
+ipcMain.on('cerrarNacionalidadCrearPersona', (event,datos) => {
     // Cerrar la ventana actual de capturaOnline si existe
     if (nacionalidad) {
         nacionalidad.close();
     }
-    createPersona();
-
+    console.log(datos);
+    createPersona(datos);
+    console.log('Datos recibidos en persona:', datos);
 });
 
 ipcMain.on('regresar-capturaOnline', () => {

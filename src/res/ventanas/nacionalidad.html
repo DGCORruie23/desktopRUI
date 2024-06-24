@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nueva Ventana</title>
+    <link rel="stylesheet" href="../css/colors.css">
     <link rel="stylesheet" href="../css/nacionalidad.css">
 </head>
 <body>
@@ -15,7 +16,7 @@
         <input type="text" id="searchInput" placeholder="Ingresa el país">
         <div class="countries" id="countriesList">
         </div>
-        <span id="fillMessage" class="marron-f" style="display: none;">LLENAR PARA CONTINUAR</span>
+        <span id="fillMessage" class="fillMessage">LLENAR PARA CONTINUAR</span>
     </div>
 
     <button id="backButton" class="marron">Regresar</button>
@@ -25,7 +26,7 @@
     <button id="saveButton" class="rojo">
         <img src="../img/save_icon.png" alt="Guardar" style="width: 20px; vertical-align: middle;"> Guardar
     </button>
-
+    <div id="error-message" class="error-message" style="display: none;"></div>
     <script src="../js/nacionalidad.js"></script>
 </body>
 </html>

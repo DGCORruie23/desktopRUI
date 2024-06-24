@@ -49,7 +49,9 @@ ipcRenderer.on('user-data', async (event, userData) => {
     const year = currentDate.getFullYear();
 
     const formattedDate = `${day}-${month}-${year}`;
-
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const formattedTime = `${hours}:${minutes}`;
     const dateElement = document.getElementById('current-date');
     dateElement.textContent = formattedDate;
 
@@ -92,7 +94,7 @@ ipcRenderer.on('user-data', async (event, userData) => {
     function seleccionarPunto(punto) {
         const input = document.getElementById('nPunto');
         input.value = `${punto.nombre} (${punto.tipo})`;
-        document.getElementById('suggestions').innerHTML = ''; 
+        document.getElementById('suggestions').innerHTML = '';
     }
 
     document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosUnificados));
@@ -140,7 +142,7 @@ ipcRenderer.on('user-data', async (event, userData) => {
             actualizarPuntosPorTipo(selectedOption.querySelector('span').innerText);
         }
     });
-    
+
 
     document.addEventListener('click', (e) => {
         if (!customSelect.contains(e.target)) {
@@ -151,75 +153,107 @@ ipcRenderer.on('user-data', async (event, userData) => {
     const btnNacionalidad = document.getElementById('btnNacionalidad');
     const fillMessage = document.getElementById('fillMessage');
 
-    btnNacionalidad.addEventListener('click', function() {
+    btnNacionalidad.addEventListener('click', function () {
         const inputPunto = document.getElementById('nPunto').value.trim();
-    
+
         if (inputPunto.length === 0) {
             fillMessage.style.display = 'inline-block';
             setTimeout(() => {
                 fillMessage.style.display = 'none';
-            }, 3000);
+            }, 2000);
             return;
         }
-    
+
         const puntoSeleccionado = puntosUnificados.find(punto => {
             return `${punto.nombre} (${punto.tipo})` === inputPunto;
         });
-    
+
         if (!puntoSeleccionado) {
-            alert('El punto seleccionado no existe en la base de datos.');
-            // Restablecer el evento input del buscador después de cerrar el alert
-            document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosUnificados));
+            fillMessage.textContent = 'El punto seleccionado no existe en la base de datos.';
+            fillMessage.style.display = 'inline-block';
+            setTimeout(() => {
+                fillMessage.style.display = 'none';
+            }, 2000);
             return;
         }
-    
-        ipcRenderer.send('abrir-nueva-ventana');
-    
-        // Restablecer el evento input del buscador después de realizar la acción
-        document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosUnificados));
+
+
+        const tipoRescate = document.querySelector('.select-selected span').innerText.trim().toLowerCase();
+
+        const datos = {
+            oficinaRepre: estado,
+            fecha: formattedDate,
+            hora: formattedTime,
+            nombreAgente: `${userData.nombre} ${userData.apellido}`,
+            aeropuerto: tipoRescate === 'aeropuerto',
+            carretero: tipoRescate === 'carretero',
+
+            tipoVehic : "",
+			lineaAutobus : "",
+			numeroEcono: "",
+			placas: "",
+			vehiculoAseg: false,
+
+            casaSeguridad: tipoRescate === 'casa de seguridad',
+            centralAutobus: tipoRescate === 'central de autobús',
+            ferrocarril: tipoRescate === 'ferrocarril',
+
+            empresa: "",
+            hotel: tipoRescate === 'hotel',
+            nombreHotel : "",
+            
+            puestosADispo: tipoRescate === 'puestos a disposicion',
+            juezCalif : false,
+			reclusorio: false,
+			policiaFede : false,
+			dif : false,
+			policiaEsta : false,
+			policiaMuni : false,
+			guardiaNaci : false,
+			fiscalia : false,
+			otrasAuto : false,
+
+            voluntarios: tipoRescate === 'Voluntarios',
+            otro : false,
+			presuntosDelincuentes : false,
+			numPresuntosDelincuentes : 0,
+			municipio : "",
+            puntoEstra: puntoSeleccionado.nombre
+        };
+
+
+        ipcRenderer.send('abrir-nueva-ventana', datos);
+        //ipcRenderer.send('abrir-nueva-ventana');
     });
-    
-    
-    btnFamilia.addEventListener('click', function() {
+
+    btnFamilia.addEventListener('click', function () {
         const inputPunto = document.getElementById('nPunto').value.trim();
-    
+
         if (inputPunto.length === 0) {
             fillMessage.style.display = 'inline-block';
             setTimeout(() => {
                 fillMessage.style.display = 'none';
-            }, 3000);
+            }, 2000);
             return;
         }
-    
+
         const puntoSeleccionado = puntosUnificados.find(punto => {
             return `${punto.nombre} (${punto.tipo})` === inputPunto;
         });
-    
+
         if (!puntoSeleccionado) {
-            alert('El punto seleccionado no existe en la base de datos.');
+            fillMessage.textContent = 'El punto seleccionado no existe en la base de datos.';
+            fillMessage.style.display = 'inline-block';
+            setTimeout(() => {
+                fillMessage.style.display = 'none';
+            }, 2000);
             return;
         }
-    
+
         ipcRenderer.send('familia');
     });
+
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 const updateDateTime = () => {
@@ -237,11 +271,9 @@ const updateDateTime = () => {
     dateElement.textContent = formattedDate;
 
     const timeElement = document.getElementById('current-time');
-    timeElement.textContent = formattedTime;
+    timeElement.textContent = formattedTime;console.log('Datos recibidos en nacionalidad:', datos);
 };
 
-// Llamar a la función para actualizar la fecha y hora cada segundo
-setInterval(updateDateTime, 1000);
 
-// También llamar a la función una vez para que se muestre la fecha y hora inicial
+setInterval(updateDateTime, 1000);
 updateDateTime();
