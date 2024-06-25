@@ -9,7 +9,7 @@ let mainWindow;
 let loadingWindow;
 let userWindow;
 let db;
-let dBorNo, userData, dataUpdate, verifyUser, nacionalidad, paises;
+let dBorNo, userData, dataUpdate, verifyUser, nacionalidad, paises, datosNacionalidad;
 
 function createLoadingWindow() {
     loadingWindow = new BrowserWindow({
@@ -872,6 +872,7 @@ ipcMain.on('abrir-nueva-ventana', (event,datos) => {
     if (userWindow) {
         userWindow.close();
     }
+    datosNacionalidad = datos;
     createNacionalidad(datos);
     console.log('Datos recibidos en nacionalidad:', datos);
 });
@@ -911,7 +912,7 @@ ipcMain.on('regresar-nacionalidad', () => {
         persona.close();
     }
     console.log("trato de regresarrrrrrrrr");
-    createNacionalidad();
+    createNacionalidad(datosNacionalidad);
 });
 
 

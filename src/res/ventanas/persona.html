@@ -7,41 +7,49 @@
     <link rel="stylesheet" href="../css/persona.css">
 </head>
 <body>
-    <div class="header">
-        <img src="../img/account_circle.png" alt="Icono de usuario">
-        <h1>Información de la Persona</h1>
-    </div>
-    <form class="form">
-        <div class="form-group">
-            <label for="pais">País</label>
-            <input type="text" id="pais" value="" disabled>
+    <div class="container">
+        <div class="header">
+            <img src="../img/account_circle.png" alt="Icono de usuario">
+            <h1>Información de la Persona</h1>
         </div>
-        <div class="form-group">
-            <label for="nombres">Nombre(s)</label>
-            <input type="text" id="nombres" placeholder="Nombre(s)">
-        </div>
-        <div class="form-group">
-            <label for="apellidos">Apellidos</label>
-            <input type="text" id="apellidos" placeholder="Apellidos">
-        </div>
-        <div class="form-group">
-            <label for="fechaNacimiento">Fecha de Nacimiento (DD/MM/AAAA)</label>
-            <input type="text" id="fechaNacimiento" placeholder="DD/MM/AAAA">
-        </div>
-        <div class="form-group">
-            <label>Sexo</label>
-            <div>
-                <input type="radio" id="hombre" name="sexo" value="hombre">
-                <label for="hombre">Hombre</label>
-                <input type="radio" id="mujer" name="sexo" value="mujer">
-                <label for="mujer">Mujer</label>
+        <form class="form">
+            <div class="form-group">
+                <label for="pais">País</label>
+                <input type="text" id="pais" value="" disabled>
             </div>
-        </div>
-        <button id="backButton" class="marron">Regresar</button>
-        <button id="saveButton" class="rojo">
-            <img src="../icons/ic_save_24.svg" alt="Guardar" style="width: 20px; vertical-align: middle;"> Guardar
-        </button>
-    </form>
+            <div class="form-group">
+                <label for="nombres">Nombre(s)</label>
+                <input type="text" id="nombres" placeholder="Nombre(s)">
+                <div id="nombreError" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="apellidos">Apellidos</label>
+                <input type="text" id="apellidos" placeholder="Apellidos">
+                <div id="apellidosError" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="fechaNacimiento">Fecha de Nacimiento (DD/MM/AAAA)</label>
+                <input type="text" id="fechaNacimiento" placeholder="DD/MM/AAAA">
+                <div id="fechaNacimientoError" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label>Sexo</label>
+                <div>
+                    <input type="radio" id="hombre" name="sexo" value="hombre">
+                    <label for="hombre">Hombre</label>
+                    <input type="radio" id="mujer" name="sexo" value="mujer">
+                    <label for="mujer">Mujer</label>
+                </div>
+                <div id="sexoError" class="error-message"></div>
+            </div>
+            <div class="form-buttons">
+                <button type="button" id="backButton" class="marron">Regresar</button>
+                <button type="button" id="saveButton" class="rojo">
+                    <img src="../icons/ic_save_24.svg" alt="Guardar" style="width: 20px; vertical-align: middle;"> Guardar
+                </button>
+            </div>
+        </form>
+    </div>
     <script src="../js/persona.js"></script>
 </body>
 </html>

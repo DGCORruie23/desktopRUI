@@ -1,34 +1,43 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #FFFFFF; /* Color de fondo */
-    color: #000000; /* Color de texto principal */
+    font-family: 'Arial', sans-serif;
+    background-color: #235B4E;
+    color: #000000;
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    position: relative;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #F5F5F5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .header {
     text-align: center;
-    margin: 20px auto;
+    margin-bottom: 20px;
 }
 
 .header img {
-    width: 100px; /* Ajusta el tamaño del ícono según sea necesario */
+    width: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
 }
 
 .header h1 {
     font-size: 24px;
-    margin-top: 10px;
-    color: #9F2241; /* Color de texto de título */
+    margin-top: 0;
+    color: #9F2241;
 }
 
 .search {
-    margin: 20px auto;
-    width: 80%; /* Ajusta el ancho del contenedor de búsqueda */
-    max-width: 500px; /* Ancho máximo del buscador */
+    margin-bottom: 20px;
     position: relative;
 }
 
@@ -37,75 +46,75 @@ body {
     width: 100%;
     border: 1px solid #CCCCCC;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .countries {
     border: 1px solid #CCCCCC;
     border-radius: 4px;
     padding: 10px;
-    max-height: 50vh; /* Limita la altura de la lista al 50% del viewport */
+    max-height: 200px;
     overflow-y: auto;
-    margin-top: 1px; /* Ajusta para que la lista esté justo debajo del input */
-    display: none; /* Ocultar la lista de países inicialmente */
+    margin-top: 4px;
+    display: none;
     position: absolute;
     width: 100%;
-    background-color: #FFFFFF; /* Fondo blanco para la lista desplegable */
-    z-index: 1; /* Asegurarse de que esté sobre otros elementos */
+    background-color: #FFFFFF;
+    z-index: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .countries p {
     padding: 8px 0;
+    margin: 0;
     border-bottom: 1px solid #EEEEEE;
     cursor: pointer;
 }
 
-.countries p:hover {
-    background-color: #DDC9A3; /* Fondo marrón claro al pasar el mouse */
+.countries p:last-child {
+    border-bottom: none;
 }
 
-#backButton, #btnNacionalidad, #saveButton {
+.countries p:hover {
+    background-color: #DDC9A3;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+button {
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    position: fixed;
-    bottom: 10px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    color: #FFFFFF; /* White text */
+    font-weight: bold; /* Bold text */
 }
 
-#backButton {
-    background-color: #DDC9A3;
-    color: #FFFFFF;
-    left: 10px;
+#backButton, #btnNacionalidad {
+    background-color: #235B4E; /* Verde oscuro */
 }
 
-#backButton:hover {
-    background-color: #BFA982; /* Cambio de color al pasar el mouse */
-}
-
-#btnNacionalidad {
-    background-color: #DDC9A3;
-    color: #FFFFFF;
-    right: 120px; /* Ajuste del margen derecho */
-    margin-left: 10px; /* Añadir margen izquierdo para espaciado */
-}
-
-#btnNacionalidad:hover {
-    background-color: #BFA982; /* Cambio de color al pasar el mouse */
+#backButton:hover, #btnNacionalidad:hover {
+    background-color: #10312B; /* Verde más oscuro */
 }
 
 #saveButton {
-    background-color: #9F2241;
-    color: #FFFFFF;
-    right: 10px; /* Ajuste del margen derecho */
-    display: flex;
-    align-items: center;
+    background-color: #9F2241; /* Rojo */
 }
 
 #saveButton:hover {
-    background-color: #691C32; /* Cambio de color al pasar el mouse */
+    background-color: #691C32; /* Rojo más oscuro */
 }
 
 .fillMessage {
+    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -119,9 +128,10 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     text-align: center;
-    display: none; /* Initial state hidden */
 }
+
 .error-message {
+    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -135,7 +145,6 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     text-align: center;
-    display: none; /* Initial state hidden */
     width: 80%;
     max-width: 400px;
     transition: opacity 0.3s ease-in-out;
