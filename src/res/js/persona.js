@@ -123,7 +123,7 @@ ipcRenderer.on('datos-nacionalidad', async (event, datos) => {
         datos = { ...datos, ...lista };
 
         console.log("datos: ", datos);
-        // ipcRenderer.send('guardar-datos-persona', datos);
+        ipcRenderer.send('guardarRegistro', datos);
     });
 
     function calcularEdad(fecha) {

@@ -915,6 +915,27 @@ ipcMain.on('regresar-nacionalidad', () => {
     createNacionalidad(datosNacionalidad);
 });
 
+ipcMain.on('guardarRegistro', (event,datos) => {
+    console.log("Se guardarán en la base de datos: ", datos);
+    // if (!db) {
+    //     console.error('Database is not initialized.');
+    //     return;
+    // }
+
+    // const stmt = db.prepare(`
+    //     INSERT INTO Registro (nickname, nombre, apellido, password, estado, tipo)
+    //     VALUES (?, ?, ?, ?, ?, ?)
+    // `);
+
+    // stmt.run(userData.nickname, userData.nombre, userData.apellido, userData.password, userData.estado, userData.tipo, (err) => {
+    //     if (err) {
+    //         console.error('Error saving user to database:', err);
+    //     } else {
+    //         console.log('User saved to database successfully.');
+    //     }
+    //     stmt.finalize();
+    // });
+});
 
 ipcMain.handle('obtenerPaisesDeDB', async (event) => {
     try {
