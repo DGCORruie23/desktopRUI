@@ -101,9 +101,12 @@ ipcRenderer.on('user-data', async (event, userData) => {
 
     async function actualizarPuntosPorTipo(tipoRescate) {
         const tRescate = tipoRescate.toLowerCase();
-    
+        const inputPuntoContainer = document.querySelector('.search-bar');
+        const inputPunto = document.getElementById('nPunto');
+        const suggestions = document.getElementById('suggestions');
+        
         let puntosFiltrados = [];
-    
+        
         if (tRescate === 'hotel') {
             puntosFiltrados = puntosUnificados.filter(punto => punto.tipo.toLowerCase() === 'hotel');
         } else if (tRescate !== 'voluntarios') {
@@ -113,16 +116,13 @@ ipcRenderer.on('user-data', async (event, userData) => {
                 return tipoEquivalente === tRescate || tipoPunto === tRescate;
             });
         }
-    
-        console.log("Puntos Filtrados:", puntosFiltrados);
-    
-        const inputPunto = document.getElementById('nPunto');
-        const suggestions = document.getElementById('suggestions');
         
         if (tRescate === 'voluntarios') {
+            inputPuntoContainer.style.display = 'none'; // Ocultar el contenedor del buscador
             inputPunto.disabled = true;
             suggestions.innerHTML = ''; // Clear suggestions
         } else {
+            inputPuntoContainer.style.display = 'block'; // Mostrar el contenedor del buscador
             inputPunto.disabled = false;
             inputPunto.value = '';
             document.getElementById('nPunto').removeEventListener('input', buscarPunto);
@@ -164,20 +164,21 @@ ipcRenderer.on('user-data', async (event, userData) => {
 
     btnNacionalidad.addEventListener('click', function () {
         const inputPunto = document.getElementById('nPunto').value.trim();
-
-        if (inputPunto.length === 0) {
+        const tipoRescate = document.querySelector('.select-selected span').innerText.trim().toLowerCase();
+    
+        if (tipoRescate !== 'voluntarios' && inputPunto.length === 0) {
             fillMessage.style.display = 'inline-block';
             setTimeout(() => {
                 fillMessage.style.display = 'none';
             }, 2000);
             return;
         }
-
+    
         const puntoSeleccionado = puntosUnificados.find(punto => {
             return `${punto.nombre} (${punto.tipo})` === inputPunto;
         });
-
-        if (!puntoSeleccionado) {
+    
+        if (tipoRescate !== 'voluntarios' && !puntoSeleccionado) {
             fillMessage.textContent = 'El punto seleccionado no existe en la base de datos.';
             fillMessage.style.display = 'inline-block';
             setTimeout(() => {
@@ -185,10 +186,7 @@ ipcRenderer.on('user-data', async (event, userData) => {
             }, 2000);
             return;
         }
-
-
-        const tipoRescate = document.querySelector('.select-selected span').innerText.trim().toLowerCase();
-
+    
         const datos = {
             oficinaRepre: estado,
             fecha: formattedDate,
@@ -196,43 +194,36 @@ ipcRenderer.on('user-data', async (event, userData) => {
             nombreAgente: `${userData.nombre} ${userData.apellido}`,
             aeropuerto: tipoRescate === 'aeropuerto',
             carretero: tipoRescate === 'carretero',
-
-            tipoVehic : "",
-			lineaAutobus : "",
-			numeroEcono: "",
-			placas: "",
-			vehiculoAseg: false,
-
+            tipoVehic: "",
+            lineaAutobus: "",
+            numeroEcono: "",
+            placas: "",
+            vehiculoAseg: false,
             casaSeguridad: tipoRescate === 'casa de seguridad',
             centralAutobus: tipoRescate === 'central de autobús',
             ferrocarril: tipoRescate === 'ferrocarril',
-
             empresa: "",
             hotel: tipoRescate === 'hotel',
-            nombreHotel : "",
-            
+            nombreHotel: "",
             puestosADispo: tipoRescate === 'puestos a disposicion',
-            juezCalif : false,
-			reclusorio: false,
-			policiaFede : false,
-			dif : false,
-			policiaEsta : false,
-			policiaMuni : false,
-			guardiaNaci : false,
-			fiscalia : false,
-			otrasAuto : false,
-
-            voluntarios: tipoRescate === 'Voluntarios',
-            otro : false,
-			presuntosDelincuentes : false,
-			numPresuntosDelincuentes : 0,
-			municipio : "",
-            puntoEstra: puntoSeleccionado.nombre
+            juezCalif: false,
+            reclusorio: false,
+            policiaFede: false,
+            dif: false,
+            policiaEsta: false,
+            policiaMuni: false,
+            guardiaNaci: false,
+            fiscalia: false,
+            otrasAuto: false,
+            voluntarios: tipoRescate === 'voluntarios',
+            otro: false,
+            presuntosDelincuentes: false,
+            numPresuntosDelincuentes: 0,
+            municipio: "",
+            puntoEstra: puntoSeleccionado ? puntoSeleccionado.nombre : ""
         };
-
-
+    
         ipcRenderer.send('abrir-nueva-ventana', datos);
-        //ipcRenderer.send('abrir-nueva-ventana');
     });
 
     btnFamilia.addEventListener('click', function () {
