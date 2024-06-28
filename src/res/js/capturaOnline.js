@@ -105,8 +105,12 @@ ipcRenderer.on('user-data', async (event, userData) => {
         const inputPunto = document.getElementById('nPunto');
         const suggestions = document.getElementById('suggestions');
         
+        const selectPuestas = document.getElementById('selectPuestas');
+
+
+
         let puntosFiltrados = [];
-        
+        console.log(tRescate);
         if (tRescate === 'hotel') {
             puntosFiltrados = puntosUnificados.filter(punto => punto.tipo.toLowerCase() === 'hotel');
         } else if (tRescate !== 'voluntarios') {
@@ -115,6 +119,20 @@ ipcRenderer.on('user-data', async (event, userData) => {
                 const tipoEquivalente = tipoPunto === 'aereos' ? 'aeropuerto' : tipoPunto === 'terrestres' ? 'carretero' : tipoPunto;
                 return tipoEquivalente === tRescate || tipoPunto === tRescate;
             });
+        }
+        
+        if (tRescate === 'puestos a disposicion') {
+            inputPuntoContainer.style.display = 'none'; // Ocultar el contenedor del buscador
+            inputPunto.disabled = true;
+            suggestions.innerHTML = ''; // Clear suggestions
+            selectPuestas.style.display = 'block';
+        } else {
+            inputPuntoContainer.style.display = 'block'; // Mostrar el contenedor del buscador
+            inputPunto.disabled = false;
+            inputPunto.value = '';
+            document.getElementById('nPunto').removeEventListener('input', buscarPunto);
+            document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosFiltrados));
+            selectPuestas.style.display = 'none';
         }
         
         if (tRescate === 'voluntarios') {
@@ -128,6 +146,8 @@ ipcRenderer.on('user-data', async (event, userData) => {
             document.getElementById('nPunto').removeEventListener('input', buscarPunto);
             document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosFiltrados));
         }
+
+
     }
     
 

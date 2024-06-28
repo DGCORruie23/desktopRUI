@@ -569,7 +569,7 @@ async function obtenerPuntos(dataUpdate) {
         };
 
         const estado = estadoMap[dataUpdate.estado] || 'Estado desconocido';
-        const oficinaR = estado; // Suponiendo que estado está disponible
+        const oficinaR = estado;
         console.log(oficinaR);
         let puntosFiltrados = [];
 
