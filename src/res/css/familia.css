@@ -1,0 +1,160 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #235B4E;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #F5F5F5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header img {
+    width: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.header h1 {
+    font-size: 24px;
+    margin-top: 0;
+    color: #9F2241;
+}
+
+.search {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.search input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.countries {
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 4px;
+    display: none;
+    position: absolute;
+    width: 100%;
+    background-color: #FFFFFF;
+    z-index: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.countries p {
+    padding: 8px 0;
+    margin: 0;
+    border-bottom: 1px solid #EEEEEE;
+    cursor: pointer;
+}
+
+.countries p:last-child {
+    border-bottom: none;
+}
+
+.countries p:hover {
+    background-color: #DDC9A3;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    color: #FFFFFF; /* White text */
+    font-weight: bold; /* Bold text */
+}
+
+#backButton, #btnNacionalidad {
+    background-color: #235B4E; /* Verde oscuro */
+}
+
+#backButton:hover, #btnNacionalidad:hover {
+    background-color: #10312B; /* Verde más oscuro */
+}
+
+#saveButton {
+    background-color: #9F2241; /* Rojo */
+}
+
+#saveButton:hover {
+    background-color: #691C32; /* Rojo más oscuro */
+}
+
+.fillMessage {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border: 2px solid #9F2241;
+    border-radius: 10px;
+    color: #691C32;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    text-align: center;
+}
+
+.error-message {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border: 2px solid #9F2241;
+    border-radius: 10px;
+    color: #691C32;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    text-align: center;
+    width: 80%;
+    max-width: 400px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.error-message.show {
+    display: block;
+    opacity: 1;
+}
+
+.error-message.hide {
+    opacity: 0;
+}

@@ -140,11 +140,11 @@ ipcRenderer.on('user-data', async (event, userData) => {
             inputPunto.disabled = true;
             suggestions.innerHTML = ''; // Clear suggestions
         } else {
-            inputPuntoContainer.style.display = 'block'; // Mostrar el contenedor del buscador
-            inputPunto.disabled = false;
-            inputPunto.value = '';
-            document.getElementById('nPunto').removeEventListener('input', buscarPunto);
-            document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosFiltrados));
+            // inputPuntoContainer.style.display = 'block'; // Mostrar el contenedor del buscador
+            // inputPunto.disabled = false;
+            // inputPunto.value = '';
+            // document.getElementById('nPunto').removeEventListener('input', buscarPunto);
+            // document.getElementById('nPunto').addEventListener('input', () => buscarPunto(puntosFiltrados));
         }
 
 
@@ -181,24 +181,28 @@ ipcRenderer.on('user-data', async (event, userData) => {
 
     const btnNacionalidad = document.getElementById('btnNacionalidad');
     const fillMessage = document.getElementById('fillMessage');
+    
 
     btnNacionalidad.addEventListener('click', function () {
         const inputPunto = document.getElementById('nPunto').value.trim();
         const tipoRescate = document.querySelector('.select-selected span').innerText.trim().toLowerCase();
-    
-        if (tipoRescate !== 'voluntarios' && inputPunto.length === 0) {
+        const tipoPuestos = document.getElementById('selectPuestas').value.trim();
+
+        if (tipoRescate !== 'voluntarios' && tipoRescate !== 'puestos a disposicion' && inputPunto.length === 0) {
             fillMessage.style.display = 'inline-block';
             setTimeout(() => {
                 fillMessage.style.display = 'none';
             }, 2000);
             return;
         }
+
+
     
         const puntoSeleccionado = puntosUnificados.find(punto => {
             return `${punto.nombre} (${punto.tipo})` === inputPunto;
         });
     
-        if (tipoRescate !== 'voluntarios' && !puntoSeleccionado) {
+        if (tipoRescate !== 'voluntarios' && tipoRescate !== 'puestos a disposicion' && !puntoSeleccionado) {
             fillMessage.textContent = 'El punto seleccionado no existe en la base de datos.';
             fillMessage.style.display = 'inline-block';
             setTimeout(() => {
@@ -218,7 +222,7 @@ ipcRenderer.on('user-data', async (event, userData) => {
             lineaAutobus: "",
             numeroEcono: "",
             placas: "",
-            vehiculoAseg: false,
+            vehiculoAseg: false ,
             casaSeguridad: tipoRescate === 'casa de seguridad',
             centralAutobus: tipoRescate === 'central de autobús',
             ferrocarril: tipoRescate === 'ferrocarril',
@@ -226,15 +230,15 @@ ipcRenderer.on('user-data', async (event, userData) => {
             hotel: tipoRescate === 'hotel',
             nombreHotel: "",
             puestosADispo: tipoRescate === 'puestos a disposicion',
-            juezCalif: false,
-            reclusorio: false,
-            policiaFede: false,
-            dif: false,
-            policiaEsta: false,
-            policiaMuni: false,
-            guardiaNaci: false,
-            fiscalia: false,
-            otrasAuto: false,
+            juezCalif: tipoPuestos === 'juezCalif',
+            reclusorio: tipoPuestos === 'reclusorio',
+            policiaFede: tipoPuestos === 'policiaFede',
+            dif: tipoPuestos === 'dif',
+            policiaEsta: tipoPuestos === 'policiaEsta',
+            policiaMuni: tipoPuestos === 'policiaMuni',
+            guardiaNaci: tipoPuestos === 'guardiaNaci',
+            fiscalia: tipoPuestos === 'fiscalia',
+            otrasAuto: tipoPuestos === 'otrasAuto',
             voluntarios: tipoRescate === 'voluntarios',
             otro: false,
             presuntosDelincuentes: false,
