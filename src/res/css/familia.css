@@ -17,6 +17,9 @@ body {
     background-color: #F5F5F5;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .header {
@@ -36,56 +39,6 @@ body {
     color: #9F2241;
 }
 
-.search {
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.search input[type="text"] {
-    padding: 10px;
-    width: 100%;
-    border: 1px solid #CCCCCC;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.countries {
-    border: 1px solid #CCCCCC;
-    border-radius: 4px;
-    padding: 10px;
-    max-height: 200px;
-    overflow-y: auto;
-    margin-top: 4px;
-    display: none;
-    position: absolute;
-    width: 100%;
-    background-color: #FFFFFF;
-    z-index: 1;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.countries p {
-    padding: 8px 0;
-    margin: 0;
-    border-bottom: 1px solid #EEEEEE;
-    cursor: pointer;
-}
-
-.countries p:last-child {
-    border-bottom: none;
-}
-
-.countries p:hover {
-    background-color: #DDC9A3;
-}
-
-.buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-}
-
 button {
     padding: 10px 20px;
     border: none;
@@ -93,68 +46,29 @@ button {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
-    color: #FFFFFF; /* White text */
-    font-weight: bold; /* Bold text */
+    color: #FFFFFF;
+    font-weight: bold;
+    margin: 10px 0;
 }
 
 #backButton, #btnNacionalidad {
-    background-color: #235B4E; /* Verde oscuro */
+    background-color: #235B4E;
 }
 
 #backButton:hover, #btnNacionalidad:hover {
-    background-color: #10312B; /* Verde más oscuro */
+    background-color: #10312B;
 }
 
 #saveButton {
-    background-color: #9F2241; /* Rojo */
+    background-color: #9F2241;
 }
 
 #saveButton:hover {
-    background-color: #691C32; /* Rojo más oscuro */
+    background-color: #691C32;
 }
 
-.fillMessage {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border: 2px solid #9F2241;
-    border-radius: 10px;
-    color: #691C32;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    text-align: center;
-}
-
-.error-message {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border: 2px solid #9F2241;
-    border-radius: 10px;
-    color: #691C32;
-    font-weight: bold;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    text-align: center;
-    width: 80%;
-    max-width: 400px;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.error-message.show {
-    display: block;
-    opacity: 1;
-}
-
-.error-message.hide {
-    opacity: 0;
+.icon {
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 8px;
 }
