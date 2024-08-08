@@ -122,12 +122,12 @@ ipcRenderer.on('user-data', async (event, userData) => {
         }
         
         if (tRescate === 'puestos a disposicion') {
-            inputPuntoContainer.style.display = 'none'; // Ocultar el contenedor del buscador
+            inputPuntoContainer.style.display = 'none';
             inputPunto.disabled = true;
-            suggestions.innerHTML = ''; // Clear suggestions
+            suggestions.innerHTML = '';
             selectPuestas.style.display = 'block';
         } else {
-            inputPuntoContainer.style.display = 'block'; // Mostrar el contenedor del buscador
+            inputPuntoContainer.style.display = 'block';
             inputPunto.disabled = false;
             inputPunto.value = '';
             document.getElementById('nPunto').removeEventListener('input', buscarPunto);
@@ -136,7 +136,7 @@ ipcRenderer.on('user-data', async (event, userData) => {
         }
         
         if (tRescate === 'voluntarios') {
-            inputPuntoContainer.style.display = 'none'; // Ocultar el contenedor del buscador
+            inputPuntoContainer.style.display = 'none';
             inputPunto.disabled = true;
             suggestions.innerHTML = ''; // Clear suggestions
         } else {

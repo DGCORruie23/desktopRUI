@@ -76,9 +76,13 @@ function createFamilia() {
     });
 
     familia.loadFile('./src/res/ventanas/familia.html');
+    familia.webContents.on('did-finish-load', () => {
+        familia.webContents.send('datos-capturadosFamilia', datos);
+    });
     familia.on('closed', () => {
         familia = null;
     });
+    
 }
 
 function createPersona(datos) {

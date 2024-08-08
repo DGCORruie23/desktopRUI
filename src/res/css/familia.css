@@ -20,6 +20,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between; /* Asegura que los botones estén en la parte inferior */
+    max-height: 90%; /* Limita la altura máxima del contenedor */
+    overflow: auto; /* Permite desplazamiento si el contenido excede la altura máxima */
 }
 
 .header {
@@ -39,6 +42,12 @@ body {
     color: #9F2241;
 }
 
+.button-group {
+    display: flex;
+    justify-content: space-between; /* Distribuye el espacio entre los botones */
+    width: 100%; /* Asegura que el grupo de botones ocupe todo el ancho del contenedor */
+}
+
 button {
     padding: 10px 20px;
     border: none;
@@ -49,6 +58,8 @@ button {
     color: #FFFFFF;
     font-weight: bold;
     margin: 10px 0;
+    flex: 1; /* Hace que los botones ocupen el mismo espacio */
+    margin: 5px; /* Añade un margen entre los botones */
 }
 
 #backButton, #btnNacionalidad {
